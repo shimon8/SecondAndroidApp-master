@@ -5,7 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".controller.MainActivity">
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical">
     <EditText
         android:id="@+id/user_name"
         android:layout_width="match_parent"
@@ -18,8 +22,7 @@
         android:hint="נא להכניס שם משתמש"
         android:drawableLeft="@drawable/name"
         android:inputType="text"
-        tools:layout_editor_absoluteX="50dp"
-        tools:layout_editor_absoluteY="57dp" />
+         />
 
     <EditText
         android:id="@+id/password"
@@ -35,8 +38,7 @@
         android:drawableLeft="@drawable/block"
         android:inputType="numberPassword"
         android:maxLength="4"
-        tools:layout_editor_absoluteX="60dp"
-        tools:layout_editor_absoluteY="175dp" />
+      />
 
     <Button
         android:id="@+id/signtbtn"
@@ -49,7 +51,7 @@
         android:text="הכנס"
         android:textColor="@color/black"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="117dp"
-        tools:layout_editor_absoluteY="313dp" />
+       />
+</LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
