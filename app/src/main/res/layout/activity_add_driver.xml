@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".controller.AddDriver">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical">
+        <EditText
+            android:id="@+id/user_name"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="100px"
+            android:layout_marginVertical="20dp"
+            android:background="@drawable/rounded_edittext"
+            android:gravity="center"
+            android:hint="הכנס שם משתמש"
+            android:drawableLeft="@drawable/name"
+            android:inputType="text"
+            />
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="100px"
+            android:layout_marginVertical="20dp"
+            android:background="@drawable/rounded_edittext"
+            android:gravity="center"
+            android:hint="נא הכנס סיסמא"
+            android:drawableLeft="@drawable/block"
+            android:inputType="numberPassword"
+            android:maxLength="4"
+            />
+        <Button
+            android:id="@+id/signtbtn"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="100px"
+            android:layout_marginVertical="20dp"
+            android:background="@drawable/rounded_button"
+            android:text="הוסף אותי!"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
