@@ -1,7 +1,6 @@
-package com.project.secondapp.controller;
+package com.project.secondapp.controller.controller.adapters;
 
 import android.content.Intent;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,8 +11,6 @@ import com.project.secondapp.R;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-import javax.crypto.spec.SecretKeySpec;
 
 public class MainActivity extends AppCompatActivity {
     //region init
