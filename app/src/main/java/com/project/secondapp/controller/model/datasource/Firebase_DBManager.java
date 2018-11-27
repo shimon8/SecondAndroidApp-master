@@ -55,47 +55,6 @@ public class Firebase_DBManager implements Backend {
     // ----- helpers methods -----
 
     /**
-     * format the data from firebase to Driver user
-     *
-     * @param dataSnapshot the firebase ref
-     * @return new Driver
-     */
-    private Driver dataToDriver(DataSnapshot dataSnapshot) {
-        return new Driver(
-                dataSnapshot.child("name").getValue().toString(),
-                dataSnapshot.child("email").getValue().toString(),
-                dataSnapshot.child("password").getValue().toString(),
-                dataSnapshot.child("id").getValue().toString()
-        );
-    }
-
-    /**
-     * format the data from firebase to client request user
-     *
-     * @param dataSnapshot the firebase ref
-     * @return new client request
-     */
-    private Travel dataToTravel(DataSnapshot dataSnapshot) {
-        Travel request = new Travel(
-                dataSnapshot.child("name").getValue().toString(),
-                dataSnapshot.child("phone").getValue().toString(),
-                dataSnapshot.child("email").getValue().toString(),
-                (Drivingstatus) dataSnapshot.child("status").getValue(),
-                Double.parseDouble(dataSnapshot.child("sourceLatitude").getValue().toString()),
-                Double.parseDouble(dataSnapshot.child("sourceLongitude").getValue().toString()),
-                Double.parseDouble(dataSnapshot.child("destinationLatitude").getValue().toString()),
-                Double.parseDouble(dataSnapshot.child("destinationLongitude").getValue().toString())
-        );
-        if (request.getStatus() == Drivingstatus.in_progress || request.getStatus() == Drivingstatus.close) {
-            request.setStartDrive((Date) dataSnapshot.child("startDrive").getValue());
-        }
-        if (request.getStatus() == Drivingstatus.close) {
-            request.setEndDrive((Date) dataSnapshot.child("endDrive").getValue());
-        }
-        return request;
-    }
-
-    /**
      * sort the client requests by distance from the driver
      *
      * @param driverLocation the driver location
@@ -107,8 +66,8 @@ public class Firebase_DBManager implements Backend {
         double distance;
         Location loc = new Location(LocationManager.GPS_PROVIDER);
         for (Travel request : _requests) {
-            loc.setLatitude(request.getSourceLatitude());
-            loc.setLongitude(request.getSourceLongitude());
+            //loc.setLatitude(request.getSourceLatitude());
+            //loc.setLongitude(request.getSourceLongitude());
             distance = driverLocation.distanceTo(loc);
             distanceMap.put(distance, request);
         }
@@ -133,12 +92,18 @@ public class Firebase_DBManager implements Backend {
                 .addOnFailureListener(e -> Toast.makeText(context, "Fail to add the request", Toast.LENGTH_LONG).show());
     }
 
+    @Override
+    public Driver getDriver(Driver driver) {
+        return null;
+    }
+
     /**
      * get driver by email and password
      *
      * @param driver the driver with email and password
      * @return if found new full driver else new empty driver
      */
+    /*
     @Override
     public Driver getDriver(final Driver driver) {
         final Driver[] drivers = new Driver[1];
@@ -167,7 +132,7 @@ public class Firebase_DBManager implements Backend {
         return drivers[0];
     }
 
-
+*/
     //    --- the client request methods  ---
 
     /**
@@ -195,8 +160,8 @@ public class Firebase_DBManager implements Backend {
         List<Travel> requestList = new LinkedList<>();
         Location loc = new Location(LocationManager.GPS_PROVIDER);
         for (Travel request : requests) {
-            loc.setLatitude(request.getSourceLatitude());
-            loc.setLongitude(request.getSourceLongitude());
+            //loc.setLatitude(request.getSourceLatitude());
+            //loc.setLongitude(request.getSourceLongitude());
             if (loc.distanceTo(driverLocation)/1000 <= distance)
                 requestList.add(request);
         }
@@ -207,7 +172,7 @@ public class Firebase_DBManager implements Backend {
     public List<Travel> getRequest(Location driverLocation, int numRequest, Drivingstatus status) {
         List<Travel> requestList = new LinkedList<>();
         for (Travel request : requests)
-            if (request.getStatus() == status)
+            //if (request.getStatus() == status)
                 requestList.add(request);
         return requestList.subList(0,requestList.size()>=numRequest? numRequest: requestList.size());
     }
@@ -217,9 +182,9 @@ public class Firebase_DBManager implements Backend {
         List<Travel> requestList = new LinkedList<>();
         Location loc = new Location(LocationManager.GPS_PROVIDER);
         for (Travel request : requests) {
-            loc.setLatitude(request.getSourceLatitude());
-            loc.setLongitude(request.getSourceLongitude());
-            if (loc.distanceTo(driverLocation)/1000 <= distance && request.getStatus() == status)
+            //loc.setLatitude(request.getSourceLatitude());
+            //loc.setLongitude(request.getSourceLongitude());
+            //if (loc.distanceTo(driverLocation)/1000 <= distance && request.getStatus() == status)
                 requestList.add(request);
         }
         return requestList.subList(0,requestList.size()>=numRequest? numRequest: requestList.size());
@@ -289,7 +254,7 @@ public class Firebase_DBManager implements Backend {
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     Travel request = dataSnapshot.getValue(Travel.class);
                     //TODO here the conditions for relevant requests
-                    request.setId(dataSnapshot.getKey());
+                    //request.setId(dataSnapshot.getKey());
                     requests.add(request);
                     notifyDataChange.OnDataChanged(requests);
                 }
@@ -300,15 +265,21 @@ public class Firebase_DBManager implements Backend {
                     String id = dataSnapshot.getKey();
 
                     for (int i = 0; i < requests.size(); i++) {
-                        if (requests.get(i).getId().equals(id)) {
-                            request.setId(id);
+                        //if (requests.get(i).getId().equals(id)) {
+                            //request.setId(id);
                             requests.set(i, request);
                             break;
-                        }
+                       // }
                     }
                     notifyDataChange.OnDataChanged(requests);
                 }
 
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                }
+
+                /*
                 @Override
                 public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
                     String id = dataSnapshot.getKey();
@@ -321,7 +292,7 @@ public class Firebase_DBManager implements Backend {
                     }
                     notifyDataChange.OnDataChanged(requests);
                 }
-
+*/
                 @Override
                 public void onChildMoved(@NonNull DataSnapshot dataSnapshot, String s) {
                 }
