@@ -1,4 +1,5 @@
 package com.project.secondapp.controller.model.datasource;
+
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.location.Location;
@@ -7,7 +8,9 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,6 +23,7 @@ import com.project.secondapp.controller.model.entities.Driver;
 import com.project.secondapp.controller.model.entities.Drivingstatus;
 import com.project.secondapp.controller.model.entities.Travel;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -85,11 +89,50 @@ public class Firebase_DBManager implements Backend {
      * @param driver  the driver with all details
      * @param context the activity context
      */
+
     @Override
     public void addDriver(Driver driver, final Context context) {
-        driversRef.push().setValue(driver)
-                .addOnSuccessListener((OnSuccessListener<Object>) o -> Toast.makeText(context, "Success to add the request", Toast.LENGTH_LONG).show())
-                .addOnFailureListener(e -> Toast.makeText(context, "Fail to add the request", Toast.LENGTH_LONG).show());
+        try {
+            if (true) {
+                driversRef.push().setValue(driver).addOnSuccessListener(new OnSuccessListener() {
+                    @Override
+                    public void onSuccess(Object o) {
+                        Toast.makeText(context, "נרשמת בהצלחה", Toast.LENGTH_LONG).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(context, "בקשתך נכשלה", Toast.LENGTH_LONG).show();
+                    }
+                });
+                /*
+                driversRef.push().setValue(driver)
+                        .addOnSuccessListener((OnSuccessListener<Object>) o -> Toast.makeText(context, "נוספת בהצלחה", Toast.LENGTH_LONG).show())
+                        .addOnFailureListener(e -> Toast.makeText(context, "שגיאה בהתחברות", Toast.LENGTH_LONG).show());
+            */} else {
+                Toast.makeText(context, "שם משתמש כבר קיים במערכת", Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean driverExist(String userName) {
+        final Boolean[] result = {null};
+        driversRef.orderByChild("UserName").equalTo(userName).
+                addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        result[0] = dataSnapshot.exists();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        result[0] = false;
+                    }
+                });
+        while (result[0] == null) ;
+        return result[0];
     }
 
     @Override
@@ -152,20 +195,21 @@ public class Firebase_DBManager implements Backend {
     @Override
     public List<Travel> getRequest(Location driverLocation, int numRequest) {
         return this.sortByDistance(driverLocation, requests).subList(0,
-                this.requests.size()>numRequest?numRequest:this.requests.size());
+                this.requests.size() > numRequest ? numRequest : this.requests.size());
     }
 
     @Override
-    public List<Travel> getRequest(final Location driverLocation, int numRequest, final double distance) {
+    public List<Travel> getRequest(final Location driverLocation, int numRequest,
+                                   final double distance) {
         List<Travel> requestList = new LinkedList<>();
         Location loc = new Location(LocationManager.GPS_PROVIDER);
         for (Travel request : requests) {
             //loc.setLatitude(request.getSourceLatitude());
             //loc.setLongitude(request.getSourceLongitude());
-            if (loc.distanceTo(driverLocation)/1000 <= distance)
+            if (loc.distanceTo(driverLocation) / 1000 <= distance)
                 requestList.add(request);
         }
-        return requestList.subList(0,requestList.size()>=numRequest? numRequest: requestList.size());
+        return requestList.subList(0, requestList.size() >= numRequest ? numRequest : requestList.size());
     }
 
     @Override
@@ -173,25 +217,27 @@ public class Firebase_DBManager implements Backend {
         List<Travel> requestList = new LinkedList<>();
         for (Travel request : requests)
             //if (request.getStatus() == status)
-                requestList.add(request);
-        return requestList.subList(0,requestList.size()>=numRequest? numRequest: requestList.size());
+            requestList.add(request);
+        return requestList.subList(0, requestList.size() >= numRequest ? numRequest : requestList.size());
     }
 
     @Override
-    public List<Travel> getRequest(Location driverLocation, int numRequest, int distance, Drivingstatus status) {
+    public List<Travel> getRequest(Location driverLocation, int numRequest,
+                                   int distance, Drivingstatus status) {
         List<Travel> requestList = new LinkedList<>();
         Location loc = new Location(LocationManager.GPS_PROVIDER);
         for (Travel request : requests) {
             //loc.setLatitude(request.getSourceLatitude());
             //loc.setLongitude(request.getSourceLongitude());
             //if (loc.distanceTo(driverLocation)/1000 <= distance && request.getStatus() == status)
-                requestList.add(request);
+            requestList.add(request);
         }
-        return requestList.subList(0,requestList.size()>=numRequest? numRequest: requestList.size());
+        return requestList.subList(0, requestList.size() >= numRequest ? numRequest : requestList.size());
     }
 
     @Override
-    public void changeStatus(String requestID, Driver driver, final Drivingstatus status, final Context context) {
+    public void changeStatus(String requestID, Driver driver, final Drivingstatus status,
+                             final Context context) {
         clientsRequestRef.child(requestID).child("driverID").setValue(driver.getId());
         clientsRequestRef.child(requestID).child("status").setValue(status)
                 .addOnSuccessListener(aVoid -> Toast.makeText(context, "the status update to: " + status, Toast.LENGTH_LONG).show())
@@ -266,10 +312,10 @@ public class Firebase_DBManager implements Backend {
 
                     for (int i = 0; i < requests.size(); i++) {
                         //if (requests.get(i).getId().equals(id)) {
-                            //request.setId(id);
-                            requests.set(i, request);
-                            break;
-                       // }
+                        //request.setId(id);
+                        requests.set(i, request);
+                        break;
+                        // }
                     }
                     notifyDataChange.OnDataChanged(requests);
                 }

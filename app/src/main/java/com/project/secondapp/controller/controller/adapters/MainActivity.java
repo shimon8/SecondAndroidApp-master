@@ -14,8 +14,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class MainActivity extends AppCompatActivity {
     //region init
-    String pass;
-    String name;
+
     EditText userName;
     EditText password;
     Button newDriver;
@@ -29,33 +28,25 @@ public class MainActivity extends AppCompatActivity {
         userName = (EditText) findViewById(R.id.user_name);
         password = (EditText) findViewById(R.id.password);
         enterUser = (Button) findViewById(R.id.signtbtn);
-        newDriver = (Button) findViewById(R.id.ndriver);
-        newDriver.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent addDriver = new Intent(MainActivity.this, AddDriver.class);
-                 String DriverName=enterUser.getText().toString();
-                addDriver.putExtra("DriverName",DriverName);
-                startActivity(addDriver);
-            }
-        });
         enterUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    if (userName.getText().toString() != "") {
-                        name = userName.getText().toString();
-                        pass = enterUser();
-                        //TODO GO TO DB
-                    }
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();
-                }
+                Intent addDriver = new Intent(MainActivity.this, AddDriver.class);
+                startActivity(addDriver);
             }
         });
-    }
+        newDriver = (Button) findViewById(R.id.ndriver);
+        newDriver.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                Intent addDriver = new Intent(MainActivity.this, AddDriver.class);
+                startActivity(addDriver);
+            }
+        });
+
+
+    }
     public String enterUser() throws NoSuchAlgorithmException {
         MessageDigest digest = java.security.MessageDigest
                 .getInstance("MD5");

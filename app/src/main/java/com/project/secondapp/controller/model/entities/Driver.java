@@ -1,21 +1,31 @@
 package com.project.secondapp.controller.model.entities;
 
-public class Driver
-{
-    long   id;
-    long   CreditCardNumber;
+public class Driver {
+    String id;
+    String password;
     String LastName;
-    String FirsName;
+    String FirstName;
     String email;
     String phone;
+    String UserName;
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUserName() {
+        return UserName;
+    }
+
+    public void setUserName(String userName) {
+        UserName = userName;
+    }
+
     //region getter and setter
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getLastName() {
         return LastName;
@@ -25,12 +35,12 @@ public class Driver
         LastName = lastName;
     }
 
-    public String getFirsName() {
-        return FirsName;
+    public String getFirstName() {
+        return FirstName;
     }
 
-    public void setFirsName(String firsName) {
-        FirsName = firsName;
+    public void setFirstName(String firstName) {
+        FirstName = firstName;
     }
 
     public String getEmail() {
@@ -49,12 +59,12 @@ public class Driver
         this.phone = phone;
     }
 
-    public long getCreditCardNumber() {
-        return CreditCardNumber;
+    public String getPassword() {
+        return password;
     }
 
-    public void setCreditCardNumber(long creditCardNumber) {
-        CreditCardNumber = creditCardNumber;
+    public void setPassword(String Password) {
+        password = Password;
     }
     //endregion
 }

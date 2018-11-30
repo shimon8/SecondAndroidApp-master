@@ -5,23 +5,93 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".controller.controller.adapters.AddDriver">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="40dp"
         android:orientation="vertical">
         <EditText
-            android:id="@+id/user_name"
+            android:id="@+id/fname"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_marginHorizontal="100px"
             android:layout_marginVertical="20dp"
             android:background="@drawable/rounded_edittext"
+
+            android:gravity="center"
+            android:hint="הכנס שם פרטי"
+            android:inputType="text"
+            />
+        <EditText
+            android:id="@+id/lname"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="100px"
+            android:layout_marginVertical="20dp"
+            android:background="@drawable/rounded_edittext"
+
+            android:gravity="center"
+            android:hint="הכנס שם משפחה"
+            android:inputType="text"
+            />
+        <EditText
+            android:id="@+id/userName"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="100px"
+            android:layout_marginVertical="20dp"
             android:gravity="center"
             android:hint="הכנס שם משתמש"
-            android:drawableLeft="@drawable/name"
+            android:background="@drawable/rounded_edittext"
             android:inputType="text"
+            />
+
+        <EditText
+            android:id="@+id/id"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="100px"
+            android:layout_marginVertical="20dp"
+            android:gravity="center"
+            android:hint="הכנס תעודת זהות"
+            android:background="@drawable/rounded_edittext"
+
+            android:inputType="number"
+            android:maxLength="9"
+            />
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="100px"
+            android:layout_marginVertical="20dp"
+            android:background="@drawable/rounded_edittext"
+
+            android:gravity="center"
+            android:hint="הכנס דואר אלקטרוני"
+            android:inputType="textWebEmailAddress"
+            />
+        <EditText
+            android:id="@+id/phone"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="100px"
+            android:layout_marginVertical="20dp"
+            android:background="@drawable/rounded_edittext"
+
+            android:gravity="center"
+            android:hint="הכנס טלפון נייד"
+            android:inputType="number"
+            android:maxLength="9"
             />
         <EditText
             android:id="@+id/password"
@@ -34,22 +104,34 @@
             android:background="@drawable/rounded_edittext"
             android:gravity="center"
             android:hint="נא הכנס סיסמא"
-            android:drawableLeft="@drawable/block"
             android:inputType="numberPassword"
-            android:maxLength="4"
+            />
+        <EditText
+            android:id="@+id/passwordcheck"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="100px"
+            android:layout_marginVertical="20dp"
+            android:background="@drawable/rounded_edittext"
+            android:gravity="center"
+            android:hint="נא וודא סיסמא"
+            android:inputType="numberPassword"
             />
         <Button
-            android:id="@+id/signtbtn"
+            android:id="@+id/add"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginHorizontal="100px"
             android:layout_marginVertical="20dp"
             android:background="@drawable/rounded_button"
-            android:text="הוסף אותי!"
+            android:text="הוסף אותי"
             android:textColor="@color/black"
             android:textStyle="bold"
             />
     </LinearLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
