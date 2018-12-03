@@ -1,24 +1,19 @@
 package com.project.secondapp.controller.controller.adapters;
-
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import android.os.AsyncTask;
 import com.project.secondapp.R;
 import com.project.secondapp.controller.model.backend.Backend;
 import com.project.secondapp.controller.model.backend.BackendFactory;
 import com.project.secondapp.controller.model.entities.Driver;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
-public class AddDriver extends AppCompatActivity {
+public class AddDriver extends AppCompatActivity implements View.OnClickListener {
 
     Driver driver = new Driver();
     EditText Fname;
@@ -35,60 +30,62 @@ public class AddDriver extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_driver);
-        userName = (EditText) findViewById(R.id.userName);
-        password = (EditText) findViewById(R.id.password);
-        Fname = (EditText) findViewById(R.id.fname);
-        Lname = (EditText) findViewById(R.id.lname);
-        email = (EditText) findViewById(R.id.email);
-        phone = (EditText) findViewById(R.id.phone);
-        id = (EditText) findViewById(R.id.id);
-        passwordCheck = (EditText) findViewById(R.id.passwordcheck);
-        enterUser = (Button) findViewById(R.id.add);
-        enterUser.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("StaticFieldLeak")
-            @Override
-            public void onClick(View v) {
-                try {
-                    if (phone.getText().toString() != "" && password.getText().toString() != "" && id.getText().toString() != "" && Lname.getText().toString() != "" && Fname.getText().toString() != "" && userName.getText().toString() != "") {
-                        if (!(password.getText().toString().equals(passwordCheck.getText().toString()))) {
-                            passwordCheck.setError("סיסמא אינה תואמת");
-                            return;
-                        }
-                        driver.setEmail(email.getText().toString());
-                        driver.setPhone(phone.getText().toString());
-                        driver.setFirstName(Fname.getText().toString());
-                        driver.setLastName(Lname.getText().toString());
-                        driver.setPassword(enterUser());
-                        driver.setId(id.getText().toString());
-                        driver.setUserName(userName.getText().toString());
-                        Backend backend = BackendFactory.getBackend();
-                        //backend.addDriver(driver, getApplicationContext());
+        userName =  findViewById(R.id.userName);
+        password =  findViewById(R.id.password);
+        Fname =  findViewById(R.id.fname);
+        Lname =  findViewById(R.id.lname);
+        email =  findViewById(R.id.email);
+        phone =  findViewById(R.id.phone);
+        id =  findViewById(R.id.id);
+        passwordCheck =  findViewById(R.id.passwordcheck);
+        enterUser =(Button) findViewById(R.id.add);
+        enterUser.setOnClickListener(this);
+           
+        
+    }
+    public int enterUser() {
+        byte[] x = password.getText().toString().getBytes();
 
-                        new AsyncTask<Context, Void, Void>() {
+        int out=0;
+        for (int i = 0; i < x.length; i++) {
+            out+= (int) ((byte) (x[i] ^ userName.length()));
+        }
+        return  out*out;
+    }
 
-                            @Override
-                            protected Void doInBackground(Context... contexts) {
-                                backend.addDriver(driver, contexts[0]);
-                                return null;
-                            }
-                        };
-                    } else {
-                        Toast.makeText(getApplicationContext(), "פרטים חסרים, נא למלא את השדות הריקים", Toast.LENGTH_LONG).show();
-                    }
-
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();
+    @Override
+    public void onClick(View v) {
+        driver.setEmail(email.getText().toString());
+        driver.setPhone(phone.getText().toString());
+        driver.setFirstname(Fname.getText().toString());
+        driver.setLastName(Lname.getText().toString());
+        driver.setPassword(enterUser());
+        driver.setId(id.getText().toString());
+        driver.setUserName(userName.getText().toString());
+        try {
+            if (!phone.getText().toString().equals("") && !password.getText().toString().equals("") && !id.getText().toString().equals("") && !Lname.getText().toString().equals("") && !Fname.getText().toString().equals("") && !userName.getText().toString().equals("")) {
+                if (!(password.getText().toString().equals(passwordCheck.getText().toString()))) {
+                    passwordCheck.setError("סיסמא אינה תואמת");
+                    return;
                 }
+                final Backend backend = BackendFactory.getBackend();
+                //backend.addDriver(driver,AddDriver.this);
+                new AsyncTask<Context, Void, Void>() {
+                    @Override
+                    protected Void doInBackground(Context... contexts) {
+                        backend.addDriver(driver, contexts[0]);
+                        return null;
+                    }
+                }.execute(this);
             }
-        });
-    }
 
-    public String enterUser() throws NoSuchAlgorithmException {
-        MessageDigest digest = java.security.MessageDigest
-                .getInstance("MD5");
-        digest.update(password.getText().toString().getBytes());
-        return digest.digest().toString();
-    }
+            else{
+                Toast.makeText(AddDriver.this, "פרטים חסרים, נא למלא את השדות הריקים", Toast.LENGTH_LONG).show();
+            }
+        }
+        catch (Exception e) {
 
+        }
+    }
 }
 

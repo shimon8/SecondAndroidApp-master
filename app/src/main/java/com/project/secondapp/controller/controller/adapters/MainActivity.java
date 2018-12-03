@@ -47,11 +47,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    public String enterUser() throws NoSuchAlgorithmException {
-        MessageDigest digest = java.security.MessageDigest
-                .getInstance("MD5");
-        digest.update(password.getText().toString().getBytes());
-        return digest.digest().toString();
+    public byte[] enterUser() {
+        byte[] x = password.getText().toString().getBytes();
+        byte[] y = userName.getText().toString().getBytes();
+        byte[] out = new byte[y.length];
+        for (int i = 0; i < x.length; i++) {
+            out[i] = (byte) (x[i] ^ y[i % x.length]);
+        }
+        return out;
     }
-
 }
