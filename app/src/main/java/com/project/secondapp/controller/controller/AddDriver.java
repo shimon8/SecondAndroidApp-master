@@ -1,4 +1,4 @@
-package com.project.secondapp.controller.controller.adapters;
+package com.project.secondapp.controller.controller;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

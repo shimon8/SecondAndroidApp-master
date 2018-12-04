@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.controller.adapters.MainActivity">
+    tools:context=".controller.controller.MainActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,7 +22,7 @@
         android:layout_marginVertical="20dp"
         android:background="@drawable/rounded_edittext"
         android:gravity="center"
-        android:hint="נא להכניס שם משתמש"
+        android:hint="הכנס שם משתמש"
         android:drawableLeft="@drawable/name"
         android:inputType="text"
          />
@@ -33,7 +36,7 @@
         android:layout_marginVertical="20dp"
         android:background="@drawable/rounded_edittext"
         android:gravity="center"
-        android:hint="נא הכנס סיסמא"
+        android:hint="הכנס סיסמא"
         android:drawableLeft="@drawable/block"
         android:inputType="numberPassword"
         android:maxLength="4"
@@ -44,12 +47,21 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginBottom="65dp"
             android:layout_marginHorizontal="100px"
-            android:layout_marginVertical="20dp"
             android:background="@drawable/rounded_button"
-            android:text="הכנס"
+            android:text="התחבר"
             android:textColor="@color/black"
             android:textStyle="bold"
+            />
+        <TextView
+            android:text="נהג חדש"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:layout_marginHorizontal="100px"
+            android:layout_marginVertical="20px"
             />
         <Button
             android:id="@+id/ndriver"
@@ -57,14 +69,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginHorizontal="100px"
-            android:layout_marginVertical="20dp"
+            android:layout_marginVertical="20px"
             android:background="@drawable/rounded_button"
-            android:text="רוצה להירשם"
+            android:text="הרשמה"
             android:textColor="@color/black"
             android:textStyle="bold"
             />
-
-
     </LinearLayout>
-
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>

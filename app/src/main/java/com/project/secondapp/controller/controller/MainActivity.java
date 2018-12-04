@@ -1,4 +1,4 @@
-package com.project.secondapp.controller.controller.adapters;
+package com.project.secondapp.controller.controller;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,9 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.project.secondapp.R;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 public class MainActivity extends AppCompatActivity {
     //region init
@@ -31,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
         enterUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent addDriver = new Intent(MainActivity.this, AddDriver.class);
-                startActivity(addDriver);
+                Intent mainApp = new Intent(MainActivity.this, MainApp.class);
+                startActivity(mainApp);
             }
         });
         newDriver = (Button) findViewById(R.id.ndriver);
