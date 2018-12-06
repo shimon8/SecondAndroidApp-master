@@ -2,6 +2,7 @@ package com.project.secondapp.controller.model.datasource;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
@@ -10,6 +11,9 @@ import android.view.View;
 import android.widget.Toast;
 import android.os.AsyncTask;
 
+import com.google.firebase.database.Query;
+import com.project.secondapp.controller.controller.AddDriver;
+import com.project.secondapp.controller.controller.MainActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
@@ -18,6 +22,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.project.secondapp.controller.controller.MainActivity;
+import com.project.secondapp.controller.controller.MainApp;
 import com.project.secondapp.controller.model.backend.Backend;
 import com.project.secondapp.controller.model.backend.BackendFactory;
 import com.project.secondapp.controller.model.entities.Driver;
@@ -74,24 +80,6 @@ public class Firebase_DBManager implements Backend {
     private DatabaseReference driversRef = FirebaseDatabase.getInstance().getReference("drivers");
     private List<Travel> requests;
 
-
-    private boolean driverExist(String userName) {
-        final Boolean[] result = {null};
-        driversRef.orderByChild("UserName").equalTo(userName).
-                addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        result[0] = dataSnapshot.exists();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        result[0] = false;
-                    }
-                });
-        while (result[0] == null) ;
-        return result[0];
-    }
 
 // the listener to the requests database
 // --------- listen to firebase requests changes  ---------
@@ -204,10 +192,27 @@ public class Firebase_DBManager implements Backend {
 //                    }
 //                });
 
+    private boolean driverExist(String userName) {
+        final Boolean[] result = {null};
+        driversRef.orderByChild("UserName").equalTo(userName).
+                addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        result[0] = dataSnapshot.exists();
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        result[0] = false;
+                    }
+                });
+        while (result[0] == null) ;
+        return result[0];
+    }
     @Override
     public void addDriver(Driver driver, Context context) {
         try {
+            if (!driverExist(driver.getUserName())) {
                 driversRef.push().setValue(driver).addOnSuccessListener(new OnSuccessListener() {
                     @Override
                     public void onSuccess(Object o) {
@@ -219,12 +224,43 @@ public class Firebase_DBManager implements Backend {
                         Toast.makeText(context, "בקשתך נכשלה", Toast.LENGTH_LONG).show();
                     }
                 });
-           {
-                Toast.makeText(context, "שם משתמש כבר קיים במערכת", Toast.LENGTH_LONG).show();
+            } else {
+                {
+                    Toast.makeText(context, "שם משתמש כבר קיים במערכת", Toast.LENGTH_LONG).show();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+    @Override
+    public void checkLogin(String UserName, int Password, Context context) {
+        driversRef.orderByChild("userName").equalTo(UserName).
+                addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            DataSnapshot DSuser =dataSnapshot.getChildren().iterator().next();
+                            Driver d = DSuser.getValue(Driver.class);
+                            if (d.getPassword() == Password) {
+                                Intent mainApp = new Intent(context, MainApp.class);
+                                context.startActivity(mainApp);
+                            }
+                            else
+                            {
+                                Toast.makeText(context, "פרטים שגויים, מלא שנית", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                        else
+                        {
+                            Toast.makeText(context, "פרטים שגויים, מלא שנית", Toast.LENGTH_LONG).show();
+                        }
 
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                return;
+                    }
+                });
+    }
 }
