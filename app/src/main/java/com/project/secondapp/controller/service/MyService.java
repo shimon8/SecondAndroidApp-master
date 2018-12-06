@@ -23,21 +23,21 @@ public class MyService extends Service {
     public int onStartCommand(final Intent intent, int flags, int startId) {
         dbManager = (Firebase_DBManager) BackendFactory.getBackend();
         context = getApplicationContext();
-        dbManager.notifyToRequsetsList(new Firebase_DBManager.NotifyDataChange<List<Travel>>() {
-            @Override
-            public void OnDataChanged(List<Travel> obj) {
-                try {
-                    Intent intent = new Intent(context, MyReceiver.class);
-                    sendBroadcast(intent);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-           public void onFailure(Exception exception) {
-            }
-        });
+//        dbManager.notifyToRequsetsList(new Firebase_DBManager.NotifyDataChange<List<Travel>>() {
+//            @Override
+//            public void OnDataChanged(List<Travel> obj) {
+//                try {
+//                    Intent intent = new Intent(context, MyReceiver.class);
+//                    sendBroadcast(intent);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            @Override
+//           public void onFailure(Exception exception) {
+//            }
+//        });
         return START_REDELIVER_INTENT;
     }
 

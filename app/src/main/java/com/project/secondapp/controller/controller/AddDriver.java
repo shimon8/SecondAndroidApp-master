@@ -1,4 +1,5 @@
 package com.project.secondapp.controller.controller;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -53,6 +54,7 @@ public class AddDriver extends AppCompatActivity implements View.OnClickListener
         return  out*out;
     }
 
+    @SuppressLint("StaticFieldLeak")
     @Override
     public void onClick(View v) {
         driver.setEmail(email.getText().toString());
@@ -73,7 +75,7 @@ public class AddDriver extends AppCompatActivity implements View.OnClickListener
                 new AsyncTask<Context, Void, Void>() {
                     @Override
                     protected Void doInBackground(Context... contexts) {
-                        backend.addDriver(driver, contexts[0]);
+                        backend.addDriver(driver,AddDriver.this);
                         return null;
                     }
                 }.execute(this);
