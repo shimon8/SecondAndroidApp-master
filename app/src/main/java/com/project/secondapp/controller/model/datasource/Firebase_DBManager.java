@@ -7,6 +7,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Toast;
 import android.os.AsyncTask;
@@ -95,7 +96,9 @@ public class Firebase_DBManager implements Backend {
     private ChildEventListener serviceListener;
 
 
-//    public void notifyToRequsetsList(final NotifyDataChange<List<Travel>> notifyDataChange) {
+    public void notifyToRequsetsList(ChildEventListener listener) {
+        clientsRequestRef.addChildEventListener(listener);
+    }
 //        if (notifyDataChange != null) {
 //
 //            if (requestsRefChildEventListener != null) {

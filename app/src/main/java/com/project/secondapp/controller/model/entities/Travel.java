@@ -4,8 +4,8 @@ import android.location.Location;
 
 public class Travel {
     Drivingstatus drivingStatus;
-    Location      current;
-    Location      destination;
+    mLocation     current;
+    mLocation     destination;
     String        stratDrving;
     String        endDriving;
     String        clientName;
@@ -24,7 +24,7 @@ public class Travel {
         return current;
     }
 
-    public void setCurrent(Location current) {
+    public void setCurrent(mLocation current) {
         this.current = current;
     }
 
@@ -32,7 +32,7 @@ public class Travel {
         return destination;
     }
 
-    public void setDestination(Location destination) {
+    public void setDestination(mLocation destination) {
         this.destination = destination;
     }
 

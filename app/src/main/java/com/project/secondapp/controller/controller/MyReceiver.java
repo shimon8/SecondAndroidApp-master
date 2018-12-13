@@ -18,7 +18,7 @@ public class MyReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
-                new Intent(context,MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
+                new Intent(context,MainApp.class), PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         String NOTIFICATION_CHANNEL_ID = "my_channel_id_01";
@@ -41,8 +41,11 @@ public class MyReceiver extends BroadcastReceiver {
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setWhen(System.currentTimeMillis())
                 .setSmallIcon(R.drawable.ic_menu_send)
-                .setContentTitle("new request")
-                .setContentText("you have a new relevant request")
+                .setContentTitle("התקבלה נסיעה חדשה")
+                .setContentText("יש לך נסיעה חדשה\n"
+                        + "שם: " + intent.getStringExtra("name")+ "\n"
+                        + "טלפון: " + intent.getStringExtra("phone")+".\n"
+                )
                 .setDefaults(Notification.DEFAULT_LIGHTS| Notification.DEFAULT_SOUND)
                 .setContentIntent(contentIntent)
                 .setContentInfo("Info");

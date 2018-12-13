@@ -1,5 +1,7 @@
 package com.project.secondapp.controller.controller;
 
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -14,12 +16,18 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.project.secondapp.R;
+import com.project.secondapp.controller.service.MyService;
 
 public class MainApp extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    static ComponentName service = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (service == null) {
+            Intent intent = new Intent(getBaseContext(), MyService.class);
+            service = startService(intent);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_app);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
