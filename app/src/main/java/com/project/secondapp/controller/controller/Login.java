@@ -8,15 +8,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.project.secondapp.R;
 import com.project.secondapp.controller.model.backend.Backend;
 import com.project.secondapp.controller.model.backend.BackendFactory;
+import com.project.secondapp.controller.model.entities.Travel;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class Login extends AppCompatActivity {
     //region init
-
+    final Backend backend1 = BackendFactory.getBackend();
     EditText userName;
     EditText password;
     Button newDriver;
@@ -40,14 +42,13 @@ public class MainActivity extends AppCompatActivity {
               {
                   e.getMessage();
               }
-
             }
         });
         newDriver = (Button) findViewById(R.id.ndriver);
         newDriver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    Intent addDriver = new Intent(MainActivity.this, AddDriver.class);
+                    Intent addDriver = new Intent(Login.this, AddDriver.class);
                     startActivity(addDriver);
             }
         });
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         new AsyncTask<Context, Void, Void>() {
             @Override
             protected Void doInBackground(Context... contexts) {
-                backend.checkLogin(Username , enterUser(), MainActivity.this);
+                backend.checkLogin(Username , enterUser(), Login.this);
                 return null;
             }
         }.execute(this);

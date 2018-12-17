@@ -16,10 +16,12 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.project.secondapp.R;
+import com.project.secondapp.controller.model.backend.Backend;
+import com.project.secondapp.controller.model.backend.BackendFactory;
+import com.project.secondapp.controller.model.entities.Travel;
 import com.project.secondapp.controller.service.MyService;
-
-public class MainApp extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+import java.util.ArrayList;
+public class MainApp extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     static ComponentName service = null;
     @Override
@@ -30,9 +32,10 @@ public class MainApp extends AppCompatActivity
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_app);
+        final Backend backend = BackendFactory.getBackend();
+        ArrayList<Travel> travels=backend.getAllDrive();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +54,6 @@ public class MainApp extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

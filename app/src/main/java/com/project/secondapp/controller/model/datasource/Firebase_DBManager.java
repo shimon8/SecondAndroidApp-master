@@ -1,20 +1,14 @@
 package com.project.secondapp.controller.model.datasource;
 
-import android.annotation.TargetApi;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
-import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.view.View;
+import android.support.annotation.RequiresApi;
 import android.widget.Toast;
-import android.os.AsyncTask;
 
-import com.google.firebase.database.Query;
-import com.project.secondapp.controller.controller.AddDriver;
-import com.project.secondapp.controller.controller.MainActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
@@ -22,28 +16,26 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.project.secondapp.controller.controller.MainActivity;
 import com.project.secondapp.controller.controller.MainApp;
 import com.project.secondapp.controller.model.backend.Backend;
 import com.project.secondapp.controller.model.backend.BackendFactory;
 import com.project.secondapp.controller.model.entities.Driver;
-import com.project.secondapp.controller.model.entities.Drivingstatus;
 import com.project.secondapp.controller.model.entities.Travel;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.function.Consumer;
 
 
 public class Firebase_DBManager implements Backend {
+    public final  ArrayList<Travel> travels = new ArrayList<Travel>();
     // ----- constructors -----
 
     public Firebase_DBManager() {
         requests = new ArrayList<>();
+        initTravel();
 //        this.notifyToRequsetsList(new NotifyDataChange<List<Travel>>() {
 //            @Override
 //            public void OnDataChanged(List<Travel> obj) {
@@ -62,6 +54,7 @@ public class Firebase_DBManager implements Backend {
         //if try to create Firebase_DBManager with null param
         //this throw NullPointerException
         requests = new ArrayList<>();
+        initTravel();
 //        this.notifyToRequsetsList(new NotifyDataChange<List<Travel>>() {
 //            @Override
 //            public void OnDataChanged(List<Travel> obj) {
@@ -91,11 +84,27 @@ public class Firebase_DBManager implements Backend {
         void onFailure(Exception exception);
 
     }
-
     private ChildEventListener requestsRefChildEventListener;
     private ChildEventListener serviceListener;
+    public ArrayList<Travel> getAllDrive() {
+            initTravel();
+            return travels;
+    }
+    public void initTravel() {
+                clientsRequestRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Travel travel = snapshot.getValue(Travel.class);
+                            travels.add(travel);
+                        }
+                    }
 
-
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+    }
     public void notifyToRequsetsList(ChildEventListener listener) {
         clientsRequestRef.addChildEventListener(listener);
     }
@@ -194,7 +203,6 @@ public class Firebase_DBManager implements Backend {
 //                        Toast.makeText(context, "בקשתך נכשלה", Toast.LENGTH_LONG).show();
 //                    }
 //                });
-
     private boolean driverExist(String userName) {
         final Boolean[] result = {null};
         driversRef.orderByChild("UserName").equalTo(userName).
