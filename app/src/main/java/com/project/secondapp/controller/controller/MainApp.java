@@ -1,5 +1,6 @@
 package com.project.secondapp.controller.controller;
 
+import android.app.FragmentManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,14 +17,16 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.project.secondapp.R;
+import com.project.secondapp.TravelFragment;
 import com.project.secondapp.controller.model.backend.Backend;
 import com.project.secondapp.controller.model.backend.BackendFactory;
-import com.project.secondapp.controller.model.entities.Travel;
 import com.project.secondapp.controller.service.MyService;
-import java.util.ArrayList;
+import com.project.secondapp.dummy.DummyContent;
+
 public class MainApp extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     static ComponentName service = null;
+    DummyContent content;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (service == null) {
@@ -33,7 +36,6 @@ public class MainApp extends AppCompatActivity implements NavigationView.OnNavig
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_app);
         final Backend backend = BackendFactory.getBackend();
-        ArrayList<Travel> travels=backend.getAllDrive();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -53,6 +55,7 @@ public class MainApp extends AppCompatActivity implements NavigationView.OnNavig
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        content = new DummyContent(backend.getAllDrive());
     }
     @Override
     public void onBackPressed() {
@@ -86,14 +89,16 @@ public class MainApp extends AppCompatActivity implements NavigationView.OnNavig
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        FragmentManager fragmentManager = getFragmentManager();
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, TravelFragment.newInstance(1,content))
+                    .commit();
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {

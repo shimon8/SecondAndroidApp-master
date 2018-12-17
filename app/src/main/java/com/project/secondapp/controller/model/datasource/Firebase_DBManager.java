@@ -1,12 +1,8 @@
 package com.project.secondapp.controller.model.datasource;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -16,7 +12,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.project.secondapp.controller.controller.MainApp;
 import com.project.secondapp.controller.model.backend.Backend;
@@ -26,11 +21,10 @@ import com.project.secondapp.controller.model.entities.Travel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 
 public class Firebase_DBManager implements Backend {
-    public final  ArrayList<Travel> travels = new ArrayList<Travel>();
+    public final ArrayList<Travel> travels = new ArrayList<Travel>();
     // ----- constructors -----
 
     public Firebase_DBManager() {
@@ -84,31 +78,37 @@ public class Firebase_DBManager implements Backend {
         void onFailure(Exception exception);
 
     }
+
     private ChildEventListener requestsRefChildEventListener;
     private ChildEventListener serviceListener;
-    public ArrayList<Travel> getAllDrive() {
-            initTravel();
-            return travels;
-    }
-    public void initTravel() {
-                clientsRequestRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            Travel travel = snapshot.getValue(Travel.class);
-                            travels.add(travel);
-                        }
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
+    public ArrayList<Travel> getAllDrive() {
+        initTravel();
+        return travels;
     }
+
+    public void initTravel() {
+        clientsRequestRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Travel travel = snapshot.getValue(Travel.class);
+                    travel.setId(snapshot.getKey());
+                    travels.add(travel);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
     public void notifyToRequsetsList(ChildEventListener listener) {
         clientsRequestRef.addChildEventListener(listener);
     }
-//        if (notifyDataChange != null) {
+
+    //        if (notifyDataChange != null) {
 //
 //            if (requestsRefChildEventListener != null) {
 //                if (serviceListener != null) {
@@ -220,6 +220,7 @@ public class Firebase_DBManager implements Backend {
         while (result[0] == null) ;
         return result[0];
     }
+
     @Override
     public void addDriver(Driver driver, Context context) {
         try {
@@ -244,6 +245,7 @@ public class Firebase_DBManager implements Backend {
             e.printStackTrace();
         }
     }
+
     @Override
     public void checkLogin(String UserName, int Password, Context context) {
         driversRef.orderByChild("userName").equalTo(UserName).
@@ -251,26 +253,23 @@ public class Firebase_DBManager implements Backend {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
-                            DataSnapshot DSuser =dataSnapshot.getChildren().iterator().next();
+                            DataSnapshot DSuser = dataSnapshot.getChildren().iterator().next();
                             Driver d = DSuser.getValue(Driver.class);
                             if (d.getPassword() == Password) {
                                 Intent mainApp = new Intent(context, MainApp.class);
                                 context.startActivity(mainApp);
-                            }
-                            else
-                            {
+                            } else {
                                 Toast.makeText(context, "פרטים שגויים, מלא שנית", Toast.LENGTH_LONG).show();
                             }
-                        }
-                        else
-                        {
+                        } else {
                             Toast.makeText(context, "פרטים שגויים, מלא שנית", Toast.LENGTH_LONG).show();
                         }
 
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-                                return;
+                        return;
                     }
                 });
     }

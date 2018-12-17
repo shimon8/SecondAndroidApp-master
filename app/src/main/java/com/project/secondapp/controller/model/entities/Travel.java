@@ -3,6 +3,7 @@ package com.project.secondapp.controller.model.entities;
 import android.location.Location;
 
 public class Travel {
+    String        id;
     Drivingstatus drivingStatus;
     mLocation     current;
     mLocation     destination;
@@ -76,5 +77,12 @@ public class Travel {
         this.clientEmail = clientEmail;
     }
 
-    //endregion
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+//endregion
 }

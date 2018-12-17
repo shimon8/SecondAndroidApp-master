@@ -26,6 +26,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //noinspection GradleCompatible
     implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
     apply plugin: 'com.google.gms.google-services'
     //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:27.1.1'
