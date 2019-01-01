@@ -7,12 +7,20 @@ public class Travel {
     Drivingstatus drivingStatus;
     mLocation     current;
     mLocation     destination;
+    String        address;
     String        stratDrving;
     String        endDriving;
     String        clientName;
     String        clientNumber;
     String        clientEmail;
    //region getter and setter
+   public String getAddress() {
+       return address;
+   }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
     public Drivingstatus getDrivingStatus() {
         return drivingStatus;
     }

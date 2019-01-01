@@ -95,19 +95,16 @@ public class MainApp extends AppCompatActivity implements NavigationView.OnNavig
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         FragmentManager fragmentManager = getFragmentManager();
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_travels) {
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, TravelFragment.newInstance(1,content))
                     .commit();
-        } else if (id == R.id.nav_gallery) {
+        }
+          else if (id == R.id.nav_my_travels) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_my_clients) {
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_exit) {
 
         }
 

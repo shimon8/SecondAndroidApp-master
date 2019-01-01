@@ -4,7 +4,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.project.secondapp.TravelFragment.OnListFragmentInteractionListener;
 import com.project.secondapp.controller.model.entities.Travel;
@@ -37,7 +39,7 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
     public void onBindViewHolder(final ViewHolder holder, int position) {
         //TODO לשדה התואם בהולדר position לקשר כל שדה מהאובייקט במקום
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getId());
+        holder.mTimeView.setText(mValues.get(position).getStratDrving());
         holder.mContentView.setText(mValues.get(position).getClientName());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -57,25 +59,34 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
         return mValues.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        //TODO ליצור את כל הקומפוננטות שיציגו נסיע אחת
-        public final View mView;
-        public final TextView mIdView;
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        //TODO ליצור את כל הקומפוננטות שיציגו נסיעה אחת
+        public final TextView mTimeView;
         public final TextView mContentView;
+        public final View mView;
         public Travel mItem;
+        Button travel_button;
 
         public ViewHolder(View view) {
             //TODO view לחבר את כל הקומפוננטות לשדות ע"י ה
             //TODO fragment_travel.xml להגדיר איך תראה כל נסיע ב
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
+            mTimeView = (TextView) view.findViewById(R.id.item_time);
             mContentView = (TextView) view.findViewById(R.id.content);
+            mContentView.setOnClickListener(this);
+//            travel_button=(Button) view.findViewById(R.id.item_number);
+//            travel_button.setOnClickListener(this);
         }
 
         @Override
         public String toString() {
             return super.toString() + " '" + mContentView.getText() + "'";
+        }
+
+        @Override
+        public void onClick(View v) {
+                Toast.makeText(v.getContext() , "בדיקה", Toast.LENGTH_LONG).show();
         }
     }
 }

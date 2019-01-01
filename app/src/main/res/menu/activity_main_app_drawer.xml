@@ -5,33 +5,25 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
+            android:id="@+id/nav_travels"
+            android:icon="@drawable/ic_stat_name"
             android:title="רשימת נסיעות" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
+            android:id="@+id/nav_my_travels"
+            android:icon="@drawable/ic_previus"
             android:title="נסיעות שבוצעו" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:id="@+id/nav_my_clients"
+            android:icon="@drawable/ic_contact"
             android:title="הנוסעים שלי" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="כלים" />
     </group>
 
-    <item android:title="תקשורת">
+    <item android:title="התנתקות">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="שיתוף" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="שלח" />
+                android:id="@+id/nav_exit"
+                android:icon="@drawable/ic_exit"
+                android:title="יציאה" />
         </menu>
     </item>
 
