@@ -13,7 +13,17 @@ public class Travel {
     String        clientName;
     String        clientNumber;
     String        clientEmail;
-   //region getter and setter
+    String        dateTravel;
+
+    public String getDateTravel() {
+        return dateTravel;
+    }
+
+    public void setDateTravel(String dateTravel) {
+        this.dateTravel = dateTravel;
+    }
+
+    //region getter and setter
    public String getAddress() {
        return address;
    }

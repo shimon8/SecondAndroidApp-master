@@ -1,5 +1,7 @@
 package com.project.secondapp;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +20,13 @@ import java.util.List;
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
+
 public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRecyclerViewAdapter.ViewHolder> {
 
     private final List<Travel> mValues;
     private final OnListFragmentInteractionListener mListener;
+    Geocoder geocoder;
+    List<Address> addresses;
 
     public MyTravelRecyclerViewAdapter(List<Travel> items, OnListFragmentInteractionListener listener) {
         mValues = items;
@@ -39,9 +44,10 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
     public void onBindViewHolder(final ViewHolder holder, int position) {
         //TODO לשדה התואם בהולדר position לקשר כל שדה מהאובייקט במקום
         holder.mItem = mValues.get(position);
-        holder.mTimeView.setText(mValues.get(position).getStratDrving());
-        holder.mContentView.setText(mValues.get(position).getClientName());
-
+        holder.mTimeView.setText("זמן נסיעה: " + mValues.get(position).getDateTravel());
+        holder.mContentView.setText("שם נוסע: " + mValues.get(position).getClientName());
+        holder.mSourceAddressView.setText("מקור: " + mValues.get(position).getStratDrving());
+        holder.mDestAddressView.setText("יעד: " + mValues.get(position).getEndDriving());
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,6 +69,8 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
         //TODO ליצור את כל הקומפוננטות שיציגו נסיעה אחת
         public final TextView mTimeView;
         public final TextView mContentView;
+        public final TextView mSourceAddressView;
+        public final TextView mDestAddressView;
         public final View mView;
         public Travel mItem;
         Button travel_button;
@@ -74,6 +82,8 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
             mView = view;
             mTimeView = (TextView) view.findViewById(R.id.item_time);
             mContentView = (TextView) view.findViewById(R.id.content);
+            mSourceAddressView = (TextView) view.findViewById(R.id.sourceAddress);
+            mDestAddressView = (TextView) view.findViewById(R.id.destinationAddress);
             mContentView.setOnClickListener(this);
 //            travel_button=(Button) view.findViewById(R.id.item_number);
 //            travel_button.setOnClickListener(this);
@@ -86,7 +96,7 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
 
         @Override
         public void onClick(View v) {
-                Toast.makeText(v.getContext() , "בדיקה", Toast.LENGTH_LONG).show();
+            Toast.makeText(v.getContext(), "בדיקה", Toast.LENGTH_LONG).show();
         }
     }
 }

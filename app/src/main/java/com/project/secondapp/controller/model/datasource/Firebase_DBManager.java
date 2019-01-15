@@ -90,6 +90,7 @@ public class Firebase_DBManager implements Backend {
     public void initTravel() {
         clientsRequestRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
+
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                travels.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
