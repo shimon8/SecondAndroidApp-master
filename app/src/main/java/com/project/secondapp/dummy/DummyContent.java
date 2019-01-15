@@ -30,12 +30,10 @@ public class DummyContent {
             addItem(travel);
         }
     }
-
     private void addItem(Travel item) {
         items.add(item);
         item_map.put(item.getId(), item);
     }
-
     private String makeDetails(int position) {
         StringBuilder builder = new StringBuilder();
         builder.append("Details about Item: ").append(position);

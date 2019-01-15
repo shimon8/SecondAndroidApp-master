@@ -12,4 +12,5 @@ public interface Backend {
     void addDriver(Driver driver,Context context);
     void checkLogin(String UserName, int Password, Context context);
     ArrayList<Travel> getAllDrive();
+    ArrayList<Travel> getAllFinishDrive();
 }

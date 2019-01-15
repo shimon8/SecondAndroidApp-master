@@ -25,6 +25,8 @@ import java.util.List;
 
 public class Firebase_DBManager implements Backend {
     public final ArrayList<Travel> travels = new ArrayList<Travel>();
+    public final ArrayList<Travel> Finsihtravels = new ArrayList<Travel>();
+
     // ----- constructors -----
 
     public Firebase_DBManager() {
@@ -86,6 +88,10 @@ public class Firebase_DBManager implements Backend {
         initTravel();
         return travels;
     }
+    public ArrayList<Travel> getAllFinishDrive() {
+        initTravel();
+        return Finsihtravels;
+    }
 
     public void initTravel() {
         clientsRequestRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -96,7 +102,13 @@ public class Firebase_DBManager implements Backend {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Travel travel = snapshot.getValue(Travel.class);
                     travel.setId(snapshot.getKey());
-                    travels.add(travel);
+                    if(travel.getDrivingStatus().toString()=="FREE") {
+                        travels.add(travel);
+                    }
+                    else
+                    {
+                        Finsihtravels.add(travel);
+                    }
                 }
             }
 
@@ -105,7 +117,6 @@ public class Firebase_DBManager implements Backend {
             }
         });
     }
-
     public void notifyToRequsetsList(ChildEventListener listener) {
         clientsRequestRef.addChildEventListener(listener);
     }

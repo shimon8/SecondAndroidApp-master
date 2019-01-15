@@ -96,7 +96,8 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(v.getContext(), "בדיקה", Toast.LENGTH_LONG).show();
+            Toast.makeText(v.getContext(), mItem.getDateTravel()+"בדיקה", Toast.LENGTH_LONG).show();
+
         }
     }
 }

@@ -18,7 +18,6 @@ public class MyView extends View {
     private int mExampleColor = Color.RED; // TODO: use a default from R.color...
     private float mExampleDimension = 0; // TODO: use a default from R.dimen...
     private Drawable mExampleDrawable;
-
     private TextPaint mTextPaint;
     private float mTextWidth;
     private float mTextHeight;

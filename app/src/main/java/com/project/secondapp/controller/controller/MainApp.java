@@ -1,5 +1,6 @@
 package com.project.secondapp.controller.controller;
 
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -27,6 +28,7 @@ public class MainApp extends AppCompatActivity implements NavigationView.OnNavig
 
     static ComponentName service = null;
     DummyContent content;
+    DummyContent endTravel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (service == null) {
@@ -56,6 +58,7 @@ public class MainApp extends AppCompatActivity implements NavigationView.OnNavig
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         content = new DummyContent(backend.getAllDrive());
+        endTravel=new DummyContent(backend.getAllFinishDrive());
     }
     @Override
     public void onBackPressed() {
@@ -101,11 +104,16 @@ public class MainApp extends AppCompatActivity implements NavigationView.OnNavig
                     .commit();
         }
           else if (id == R.id.nav_my_travels) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, TravelFragment.newInstance(1,endTravel))
+                    .commit();
 
         } else if (id == R.id.nav_my_clients) {
 
-        } else if (id == R.id.nav_exit) {
 
+        } else if (id == R.id.nav_exit) {
+            finish();
+            System.exit(0);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
