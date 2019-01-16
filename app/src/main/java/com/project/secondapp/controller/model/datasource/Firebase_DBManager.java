@@ -93,6 +93,11 @@ public class Firebase_DBManager implements Backend {
         return Finsihtravels;
     }
 
+    @Override
+    public void TakeDrive(Travel myDrive) {
+        clientsRequestRef.child(myDrive.getId()).child("drivingStatus").setValue("BUSY");
+    }
+
     public void initTravel() {
         clientsRequestRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

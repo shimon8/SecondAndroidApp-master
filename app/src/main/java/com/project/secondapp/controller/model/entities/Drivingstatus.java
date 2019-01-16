@@ -4,5 +4,6 @@ public enum Drivingstatus
 {
     FREE,
     FINIHSED,
-    INPROCESS;
+    INPROCESS,
+    BUSY;
 }
