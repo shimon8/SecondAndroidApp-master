@@ -1,7 +1,13 @@
 package com.project.secondapp;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.app.FragmentTransaction;
+import android.app.FragmentManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.project.secondapp.TravelFragment.OnListFragmentInteractionListener;
+import com.project.secondapp.controller.controller.TravelActivity;
 import com.project.secondapp.controller.model.entities.Travel;
 
 import java.util.List;
@@ -97,7 +104,9 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
         @Override
         public void onClick(View v) {
             Toast.makeText(v.getContext(), mItem.getDateTravel()+"בדיקה", Toast.LENGTH_LONG).show();
-
+            Intent intent = new Intent(v.getContext(),TravelActivity.class);
+            intent.putExtra("TimeOfTravel",mItem.getDateTravel());
+            v.getContext().startActivity(intent);
         }
     }
 }
