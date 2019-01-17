@@ -94,8 +94,8 @@ public class Firebase_DBManager implements Backend {
     }
 
     @Override
-    public void TakeDrive(Travel myDrive) {
-        clientsRequestRef.child(myDrive.getId()).child("drivingStatus").setValue("BUSY");
+    public void TakeDrive(String myDrive) {
+        clientsRequestRef.child(myDrive).child("drivingStatus").setValue("BUSY");
     }
 
     public void initTravel() {

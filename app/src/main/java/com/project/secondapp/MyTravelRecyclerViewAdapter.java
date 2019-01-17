@@ -103,10 +103,18 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(v.getContext(), mItem.getDateTravel()+"בדיקה", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(v.getContext(),TravelActivity.class);
-            intent.putExtra("TimeOfTravel",mItem.getDateTravel());
-            v.getContext().startActivity(intent);
+           if(mItem.getDrivingStatus().toString()=="FREE") {
+               Toast.makeText(v.getContext(), mItem.getDateTravel() + "בדיקה", Toast.LENGTH_LONG).show();
+               Intent intent = new Intent(v.getContext(), TravelActivity.class);
+               intent.putExtra("TimeOfTravel", mItem.getDateTravel());
+               intent.putExtra("startDriving", mItem.getStratDrving());
+               intent.putExtra("endDriving", mItem.getEndDriving());
+               intent.putExtra("name", mItem.getClientName());
+               intent.putExtra("number", mItem.getClientNumber());
+               intent.putExtra("email", mItem.getClientEmail());
+               intent.putExtra("id", mItem.getId());
+               v.getContext().startActivity(intent);
+           }
         }
     }
 }

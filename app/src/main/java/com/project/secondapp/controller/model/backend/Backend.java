@@ -13,5 +13,5 @@ public interface Backend {
     void checkLogin(String UserName, int Password, Context context);
     ArrayList<Travel> getAllDrive();
     ArrayList<Travel> getAllFinishDrive();
-    void TakeDrive(Travel myDrive);
+    void TakeDrive(String IdDrive);
 }
