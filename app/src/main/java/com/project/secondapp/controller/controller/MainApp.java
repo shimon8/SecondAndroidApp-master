@@ -29,6 +29,8 @@ public class MainApp extends AppCompatActivity implements NavigationView.OnNavig
     static ComponentName service = null;
     DummyContent content;
     DummyContent endTravel;
+    FragmentManager fragmentManager = getFragmentManager();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (service == null) {
@@ -40,14 +42,6 @@ public class MainApp extends AppCompatActivity implements NavigationView.OnNavig
         final Backend backend = BackendFactory.getBackend();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "כאן תמומש פעולה..", Snackbar.LENGTH_LONG)
-                        .setAction("פעולה", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -59,6 +53,9 @@ public class MainApp extends AppCompatActivity implements NavigationView.OnNavig
         navigationView.setNavigationItemSelectedListener(this);
         content = new DummyContent(backend.getAllDrive());
         endTravel=new DummyContent(backend.getAllFinishDrive());
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_frame, TravelFragment.newInstance(1,content))
+                .commit();
     }
     @Override
     public void onBackPressed() {
@@ -97,7 +94,6 @@ public class MainApp extends AppCompatActivity implements NavigationView.OnNavig
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        FragmentManager fragmentManager = getFragmentManager();
         if (id == R.id.nav_travels) {
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, TravelFragment.newInstance(1,content))

@@ -2,6 +2,7 @@ package com.project.secondapp.controller.controller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,12 +24,15 @@ public class Login extends AppCompatActivity {
     EditText password;
     Button newDriver;
     Button enterUser;
+    SharedPreferences sharedPref;
+    private static final String PREFS_NAME = "driverSharedPreferences";
 
     //endregion
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        sharedPref = getPreferences(Context.MODE_PRIVATE);
         userName = (EditText) findViewById(R.id.user_name);
         password = (EditText) findViewById(R.id.password);
         enterUser = (Button) findViewById(R.id.signtbtn);
@@ -52,6 +56,9 @@ public class Login extends AppCompatActivity {
                     startActivity(addDriver);
             }
         });
+        //      shared preferences
+        userName.setText(sharedPref.getString("username",""));
+        password.setText(sharedPref.getString("password",""));
     }
     public void checkLogin(String Username, String Password) {
         final Backend backend = BackendFactory.getBackend();
@@ -59,6 +66,10 @@ public class Login extends AppCompatActivity {
             @Override
             protected Void doInBackground(Context... contexts) {
                 backend.checkLogin(Username , enterUser(), Login.this);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("username", userName.getText().toString());
+                editor.putString("password", password.getText().toString());
+                editor.commit();
                 return null;
             }
         }.execute(this);

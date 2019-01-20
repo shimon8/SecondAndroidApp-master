@@ -1,7 +1,9 @@
 package com.project.secondapp.controller.controller;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +33,7 @@ public class AddDriver extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_driver);
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         userName =  findViewById(R.id.userName);
         password =  findViewById(R.id.password);
         Fname =  findViewById(R.id.fname);

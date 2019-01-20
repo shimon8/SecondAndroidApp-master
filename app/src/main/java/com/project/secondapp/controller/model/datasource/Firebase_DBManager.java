@@ -32,17 +32,7 @@ public class Firebase_DBManager implements Backend {
     public Firebase_DBManager() {
         requests = new ArrayList<>();
         initTravel();
-//        this.notifyToRequsetsList(new NotifyDataChange<List<Travel>>() {
-//            @Override
-//            public void OnDataChanged(List<Travel> obj) {
-//                if (requests != obj) {
-//                    requests = obj;
-//                }
-//            }
-//            @Override
-//            public void onFailure(Exception exception) {
-//            }
-//        });
+
     }
 
 
@@ -51,19 +41,7 @@ public class Firebase_DBManager implements Backend {
         //this throw NullPointerException
         requests = new ArrayList<>();
         initTravel();
-//        this.notifyToRequsetsList(new NotifyDataChange<List<Travel>>() {
-//            @Override
-//            public void OnDataChanged(List<Travel> obj) {
-//                if (requests != obj) {
-//                    requests = obj;
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Exception exception) {
-//            }
-//        });
-        //f.hashCode();
+
     }
 
     private DatabaseReference clientsRequestRef = FirebaseDatabase.getInstance().getReference("clients");
@@ -126,101 +104,6 @@ public class Firebase_DBManager implements Backend {
         clientsRequestRef.addChildEventListener(listener);
     }
 
-    //        if (notifyDataChange != null) {
-//
-//            if (requestsRefChildEventListener != null) {
-//                if (serviceListener != null) {
-//                    notifyDataChange.onFailure(new Exception("first unNotify Travel list"));
-//                    return;
-//                } else {
-//                    serviceListener = new ChildEventListener() {
-//                        @Override
-//                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                            notifyDataChange.OnDataChanged(requests);
-//                        }
-//
-//                        @Override
-//                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//                        }
-//
-//                        @Override
-//                        public void onChildRemoved(DataSnapshot dataSnapshot) {
-//                        }
-//
-//                        @Override
-//                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(DatabaseError databaseError) {
-//                        }
-//                    };
-//                    clientsRequestRef.addChildEventListener(serviceListener);
-//                    return;
-//                }
-//            }
-//            requests.clear();
-//            requestsRefChildEventListener = new ChildEventListener() {
-//                @Override
-//                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                    Travel request = dataSnapshot.getValue(Travel.class);
-//                    //TODO here the conditions for relevant requests
-//                    request.setClientNumber(dataSnapshot.getKey());
-//                    requests.add(request);
-//                    notifyDataChange.OnDataChanged(requests);
-//                }
-//
-//                @Override
-//                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//                    Travel request = dataSnapshot.getValue(Travel.class);
-//                    String id = dataSnapshot.getKey();
-//
-//                    for (int i = 0; i < requests.size(); i++) {
-//                        if (requests.get(i).getClientNumber().equals(id)) {
-//                            request.setClientNumber(id);
-//                            requests.set(i, request);
-//                            break;
-//                        }
-//                    }
-//                    notifyDataChange.OnDataChanged(requests);
-//                }
-//
-//                @Override
-//                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-//                    String id = dataSnapshot.getKey();
-//
-//                    for (int i = 0; i < requests.size(); i++) {
-//                        if (requests.get(i).getClientNumber().equals(id)) {
-//                            requests.remove(i);
-//                            break;
-//                        }
-//                    }
-//                    notifyDataChange.OnDataChanged(requests);
-//                }
-//
-//                @Override
-//                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, String s) {
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError databaseError) {
-//                    notifyDataChange.onFailure(databaseError.toException());
-//                }
-//            };
-//            clientsRequestRef.addChildEventListener(requestsRefChildEventListener);
-//        }
-//    }
-//                driversRef.push().setValue(driver).addOnSuccessListener(new OnSuccessListener() {
-//                    @Override
-//                    public void onSuccess(Object o) {
-//                        Toast.makeText(context, "נרשמת בהצלחה", Toast.LENGTH_LONG).show();
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Toast.makeText(context, "בקשתך נכשלה", Toast.LENGTH_LONG).show();
-//                    }
-//                });
     private boolean driverExist(String userName) {
         final Boolean[] result = {null};
         driversRef.orderByChild("UserName").equalTo(userName).
