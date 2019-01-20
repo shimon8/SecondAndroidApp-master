@@ -13,13 +13,12 @@ import android.widget.TextView;
 import com.project.secondapp.R;
 import com.project.secondapp.controller.model.backend.Backend;
 import com.project.secondapp.controller.model.backend.BackendFactory;
+import com.project.secondapp.controller.model.entities.Drivingstatus;
 import com.project.secondapp.controller.model.entities.Travel;
 
 import java.util.ArrayList;
 
 public class TravelActivity extends AppCompatActivity {
-
-    ArrayList<String> contactsList = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +62,9 @@ public class TravelActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                final Backend backend = BackendFactory.getBackend();
+                backend.AddContact(getIntent().getStringExtra("id"));
+
                 Intent intent = new Intent(ContactsContract.Intents.Insert.ACTION);
                 intent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
                 intent.
@@ -71,7 +73,6 @@ public class TravelActivity extends AppCompatActivity {
                         putExtra(ContactsContract.Intents.Insert.PHONE, number.getText().toString()).
                         putExtra(ContactsContract.Intents.Insert.PHONE_TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_WORK).
                         putExtra(ContactsContract.Intents.Insert.NAME, name.getText().toString());
-                contactsList.add(name.getText().toString());
                 startActivity(intent);
             }
         });

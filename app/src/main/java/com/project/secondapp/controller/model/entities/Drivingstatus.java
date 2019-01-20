@@ -3,7 +3,7 @@ package com.project.secondapp.controller.model.entities;
 public enum Drivingstatus
 {
     FREE,
-    FINIHSED,
+    FINISH,
     INPROCESS,
     BUSY;
 }

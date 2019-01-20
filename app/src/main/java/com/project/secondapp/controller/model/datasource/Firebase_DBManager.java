@@ -26,13 +26,13 @@ import java.util.List;
 public class Firebase_DBManager implements Backend {
     public final ArrayList<Travel> travels = new ArrayList<Travel>();
     public final ArrayList<Travel> Finsihtravels = new ArrayList<Travel>();
+    public final ArrayList<Travel> contactsList = new ArrayList<Travel>();
 
     // ----- constructors -----
 
     public Firebase_DBManager() {
         requests = new ArrayList<>();
         initTravel();
-
     }
 
 
@@ -66,9 +66,20 @@ public class Firebase_DBManager implements Backend {
         initTravel();
         return travels;
     }
+
     public ArrayList<Travel> getAllFinishDrive() {
         initTravel();
         return Finsihtravels;
+    }
+
+    public ArrayList<Travel> getAllContacts() {
+        initTravel();
+        return contactsList;
+    }
+
+    @Override
+    public void AddContact(String IdDrive) {
+        clientsRequestRef.child(IdDrive).child("drivingStatus").setValue("FINISH");
     }
 
     @Override
@@ -81,25 +92,27 @@ public class Firebase_DBManager implements Backend {
             @Override
 
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               travels.clear();
+                travels.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Travel travel = snapshot.getValue(Travel.class);
                     travel.setId(snapshot.getKey());
-                    if(travel.getDrivingStatus().toString()=="FREE") {
+                    if (travel.getDrivingStatus().toString() == "FREE") {
                         travels.add(travel);
-                    }
-                    else
-                    {
+                    } else if (travel.getDrivingStatus().toString() == "FINISH") {
+                        contactsList.add(travel);
+                    } else {
                         Finsihtravels.add(travel);
                     }
                 }
             }
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
     }
+
     public void notifyToRequsetsList(ChildEventListener listener) {
         clientsRequestRef.addChildEventListener(listener);
     }

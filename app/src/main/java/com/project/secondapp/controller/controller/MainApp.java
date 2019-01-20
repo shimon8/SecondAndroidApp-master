@@ -29,6 +29,7 @@ public class MainApp extends AppCompatActivity implements NavigationView.OnNavig
     static ComponentName service = null;
     DummyContent content;
     DummyContent endTravel;
+    DummyContent contactList;
     FragmentManager fragmentManager = getFragmentManager();
 
     @Override
@@ -52,11 +53,13 @@ public class MainApp extends AppCompatActivity implements NavigationView.OnNavig
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         content = new DummyContent(backend.getAllDrive());
-        endTravel=new DummyContent(backend.getAllFinishDrive());
+        endTravel = new DummyContent(backend.getAllFinishDrive());
+        contactList = new DummyContent(backend.getAllContacts());
         fragmentManager.beginTransaction()
-                .replace(R.id.content_frame, TravelFragment.newInstance(1,content))
+                .replace(R.id.content_frame, TravelFragment.newInstance(1, content))
                 .commit();
     }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -96,16 +99,17 @@ public class MainApp extends AppCompatActivity implements NavigationView.OnNavig
         int id = item.getItemId();
         if (id == R.id.nav_travels) {
             fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, TravelFragment.newInstance(1,content))
+                    .replace(R.id.content_frame, TravelFragment.newInstance(1, content))
                     .commit();
-        }
-          else if (id == R.id.nav_my_travels) {
+        } else if (id == R.id.nav_my_travels) {
             fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, TravelFragment.newInstance(1,endTravel))
+                    .replace(R.id.content_frame, TravelFragment.newInstance(1, endTravel))
                     .commit();
 
         } else if (id == R.id.nav_my_clients) {
-
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, TravelFragment.newInstance(1, contactList))
+                    .commit();
 
         } else if (id == R.id.nav_exit) {
             finish();

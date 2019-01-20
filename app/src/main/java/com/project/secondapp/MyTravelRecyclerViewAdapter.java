@@ -104,7 +104,7 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
         @Override
         public void onClick(View v) {
            if(mItem.getDrivingStatus().toString()=="FREE") {
-               Toast.makeText(v.getContext(), mItem.getDateTravel() + "בדיקה", Toast.LENGTH_LONG).show();
+               //Toast.makeText(v.getContext(), mItem.getDateTravel() + "בדיקה", Toast.LENGTH_LONG).show();
                Intent intent = new Intent(v.getContext(), TravelActivity.class);
                intent.putExtra("TimeOfTravel", mItem.getDateTravel());
                intent.putExtra("startDriving", mItem.getStratDrving());
