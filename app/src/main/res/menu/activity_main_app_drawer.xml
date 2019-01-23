@@ -12,10 +12,10 @@
             android:id="@+id/nav_my_travels"
             android:icon="@drawable/ic_previus"
             android:title="נסיעות שבוצעו" />
-        <item
-            android:id="@+id/nav_my_clients"
-            android:icon="@drawable/ic_contact"
-            android:title="הנוסעים שלי" />
+        <!--<item-->
+            <!--android:id="@+id/nav_my_clients"-->
+            <!--android:icon="@drawable/ic_contact"-->
+            <!--android:title="הנוסעים שלי" />-->
     </group>
 
     <item android:title="התנתקות">

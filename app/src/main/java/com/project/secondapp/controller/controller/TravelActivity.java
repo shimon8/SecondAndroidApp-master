@@ -2,10 +2,9 @@ package com.project.secondapp.controller.controller;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,10 +12,6 @@ import android.widget.TextView;
 import com.project.secondapp.R;
 import com.project.secondapp.controller.model.backend.Backend;
 import com.project.secondapp.controller.model.backend.BackendFactory;
-import com.project.secondapp.controller.model.entities.Drivingstatus;
-import com.project.secondapp.controller.model.entities.Travel;
-
-import java.util.ArrayList;
 
 public class TravelActivity extends AppCompatActivity {
 
@@ -41,21 +36,28 @@ public class TravelActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final Backend backend = BackendFactory.getBackend();
                 backend.TakeDrive(getIntent().getStringExtra("id"));
+//                Intent mailIntent = new Intent(Intent.ACTION_SEND).
+//                        putExtra(Intent.EXTRA_EMAIL, email.getText().toString()).
+//                        putExtra(Intent.EXTRA_SUBJECT, "הנהג בדרך אלייך").
+//                        putExtra(Intent.EXTRA_TEXT, "שלום רב, יצאתי אלייך");
+//                mailIntent.setType("message/rfc822");
+//                startActivity(mailIntent.createChooser(mailIntent, "בחר באפליקציית המייל הרצויה"));
 
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + number.getText().toString().replace("טלפון:", "")));
-                intent.putExtra("sms_body", "שלום רב, בדרך אלייך");
-
-                Intent mailIntent = new Intent(Intent.ACTION_SEND).
-                        putExtra(Intent.EXTRA_EMAIL, email.getText().toString()).
-                        putExtra(Intent.EXTRA_SUBJECT, "הנהג בדרך אלייך").
-                        putExtra(Intent.EXTRA_TEXT, "שלום רב, יצאתי אלייך");
-                mailIntent.setType("message/rfc822");
-                startActivity(mailIntent.createChooser(mailIntent, "בחר באפליקציית המייל הרצויה"));
-
+                String[] mails = {email.getText().toString().replace("מייל:", "")};
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "שלום רב, יצאתי אלייך");
+                sendIntent.putExtra(Intent.EXTRA_USER, mails);
+                sendIntent.putExtra(Intent.EXTRA_EMAIL, mails);
+                sendIntent.putExtra("sms_body", "שלום רב, בדרך אלייך");
+                sendIntent.putExtra("address", number.getText().toString().replace("טלפון:", ""));
+                sendIntent.putExtra("subject", "הזמנת מונית SMART TAXI");
+                sendIntent.setType("text/plain");
                 String uri = "waze://?ll=" + sourceAddress.getText().toString() + "&navigate=yes";
                 startActivity(new Intent(android.content.Intent.ACTION_VIEW,
                         Uri.parse(uri)));
-                startActivity(intent);
+                startActivity(sendIntent);
+
             }
         });
         addContact.setOnClickListener(new View.OnClickListener() {
@@ -64,11 +66,11 @@ public class TravelActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final Backend backend = BackendFactory.getBackend();
                 backend.AddContact(getIntent().getStringExtra("id"));
-
+                String[] mails = {email.getText().toString()};
                 Intent intent = new Intent(ContactsContract.Intents.Insert.ACTION);
                 intent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
                 intent.
-                        putExtra(ContactsContract.Intents.Insert.EMAIL, email.getText().toString()).
+                        putExtra(ContactsContract.Intents.Insert.EMAIL, mails).
                         putExtra(ContactsContract.Intents.Insert.EMAIL_TYPE, ContactsContract.CommonDataKinds.Email.TYPE_WORK).
                         putExtra(ContactsContract.Intents.Insert.PHONE, number.getText().toString()).
                         putExtra(ContactsContract.Intents.Insert.PHONE_TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_WORK).
