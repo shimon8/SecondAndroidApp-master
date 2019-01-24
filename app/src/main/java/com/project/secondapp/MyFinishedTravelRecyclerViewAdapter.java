@@ -24,14 +24,14 @@ class MyFinishedTravelsAdapter extends RecyclerView.Adapter<MyFinishedTravelsAda
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_travel, parent, false);
+                .inflate(R.layout.fragment_fragment_content, parent, false);
         return new MyFinishedTravelsAdapter.ViewHolder(view);
     }
     @Override
     public void onBindViewHolder(@NonNull MyFinishedTravelsAdapter.ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mTimeView.setText("זמן נסיעה: " + mValues.get(position).getDateTravel());
-        holder.mContentView.setText("שם נוסע: " + mValues.get(position).getClientName());
+        holder.mTimeView.setText("שם נוסע: " + mValues.get(position).getClientName());
+        holder.mNumberView.setText("מספר טלפון: " + mValues.get(position).getClientNumber());
         holder.mSourceAddressView.setText("מקור: " + mValues.get(position).getStratDrving());
         holder.mDestAddressView.setText("יעד: " + mValues.get(position).getEndDriving());
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -53,9 +53,9 @@ class MyFinishedTravelsAdapter extends RecyclerView.Adapter<MyFinishedTravelsAda
         return mValues.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final TextView mTimeView;
-        public final TextView mContentView;
+        public final TextView mNumberView;
         public final TextView mSourceAddressView;
         public final TextView mDestAddressView;
         public final View mView;
@@ -65,11 +65,10 @@ class MyFinishedTravelsAdapter extends RecyclerView.Adapter<MyFinishedTravelsAda
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mTimeView = (TextView) view.findViewById(R.id.item_time);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mTimeView = (TextView) view.findViewById(R.id.userName);
+            mNumberView = (TextView) view.findViewById(R.id.number);
             mSourceAddressView = (TextView) view.findViewById(R.id.sourceAddress);
             mDestAddressView = (TextView) view.findViewById(R.id.destinationAddress);
-            mContentView.setOnClickListener(this);
 //            travel_button=(Button) view.findViewById(R.id.item_number);
 //            travel_button.setOnClickListener(this);
         }
@@ -93,7 +92,7 @@ class MyFinishedTravelsAdapter extends RecyclerView.Adapter<MyFinishedTravelsAda
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mNumberView.getText() + "'";
         }
     }
 }

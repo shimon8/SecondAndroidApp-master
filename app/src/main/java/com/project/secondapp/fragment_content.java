@@ -3,7 +3,7 @@ package com.project.secondapp;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -80,8 +80,17 @@ public class fragment_content extends Fragment {
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+           mListener = new OnFragmentInteractionListener() {
+               @Override
+               public void onFragmentInteraction(Uri uri) {
+
+               }
+
+               @Override
+               public void onListFragmentInteraction(Travel item) {
+
+               }
+           };
         }
     }
 

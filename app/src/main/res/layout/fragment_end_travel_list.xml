@@ -7,5 +7,5 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".fragment_content"
-    tools:listitem="@layout/fragment_end_travel_list"
+    tools:listitem="@layout/fragment_fragment_content"
     />
