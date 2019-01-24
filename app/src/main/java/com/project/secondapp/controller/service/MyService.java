@@ -35,7 +35,7 @@ public class MyService extends Service {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 try {
-                    Travel travel = dataSnapshot.getValue(Travel.class);
+                    Travel  travel = dataSnapshot.getValue(Travel.class);
                     intent1.putExtra("name", travel.getClientName());
                     intent1.putExtra("phone", travel.getClientNumber());
                     sendBroadcast(intent1);
@@ -64,21 +64,7 @@ public class MyService extends Service {
 
             }
         });
-        //        dbManager.notifyToRequsetsList(new Firebase_DBManager.NotifyDataChange<List<Travel>>() {
-//            @Override
-//            public void OnDataChanged(List<Travel> obj) {
-//                try {
-//                    Intent intent = new Intent(context, MyReceiver.class);
-//                    sendBroadcast(intent);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//            @Override
-//           public void onFailure(Exception exception) {
-//            }
-//        });
+
         return START_REDELIVER_INTENT;
     }
 

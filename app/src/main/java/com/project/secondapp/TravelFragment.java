@@ -20,21 +20,18 @@ import com.project.secondapp.dummy.DummyContent;
  * interface.
  */
 public class TravelFragment extends Fragment {
-
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private DummyContent content;
     private OnListFragmentInteractionListener mListener;
-
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
     public TravelFragment() {
     }
-
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static TravelFragment newInstance(int columnCount, DummyContent content) {
@@ -73,19 +70,6 @@ public class TravelFragment extends Fragment {
         }
         return view;
     }
-
-
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnListFragmentInteractionListener) {
-//            mListener = (OnListFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnListFragmentInteractionListener");
-//        }
-//    }
-
     @Override
     public void onDetach() {
         super.onDetach();

@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.project.secondapp.fragment_content;
 
 import com.project.secondapp.R;
 import com.project.secondapp.TravelFragment;
@@ -19,6 +20,8 @@ import com.project.secondapp.controller.model.backend.Backend;
 import com.project.secondapp.controller.model.backend.BackendFactory;
 import com.project.secondapp.controller.service.MyService;
 import com.project.secondapp.dummy.DummyContent;
+
+import javax.xml.xpath.XPathFactory;
 
 public class MainApp extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -99,13 +102,8 @@ public class MainApp extends AppCompatActivity implements NavigationView.OnNavig
                     .commit();
         } else if (id == R.id.nav_my_travels) {
             fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, TravelFragment.newInstance(1, endTravel))
+                    .replace(R.id.content_frame, fragment_content.newInstance(1,endTravel))
                     .commit();
-
-//        } else if (id == R.id.nav_my_clients) {
-//            fragmentManager.beginTransaction()
-//                    .replace(R.id.content_frame, TravelFragment.newInstance(1, contactList))
-//                    .commit();
 
         } else if (id == R.id.nav_exit) {
             finish();
