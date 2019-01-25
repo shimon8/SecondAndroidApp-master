@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.project.secondapp.controller.model.entities.Travel;
 import com.project.secondapp.dummy.DummyContent;
@@ -24,6 +25,7 @@ import com.project.secondapp.dummy.DummyContent;
  * Use the {@link fragment_content#newInstance} factory method to
  * create an instance of this fragment.
  */
+
 public class fragment_content extends Fragment {
     private int mColumnCount = 1;
     private static final String ARG_COLUMN_COUNT= "column-count";
