@@ -13,7 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.project.secondapp.AddContactsFragment;
+import com.project.secondapp.ContactsFragment;
 import com.project.secondapp.EndTravelFragment;
 
 import com.project.secondapp.R;
@@ -107,7 +107,7 @@ public class MainApp extends AppCompatActivity implements NavigationView.OnNavig
         }
         else if (id==R.id.nav_my_clients) {
             fragmentManager.beginTransaction()
-            .replace(R.id.content_frame, AddContactsFragment.newInstance(1,contactList))
+            .replace(R.id.content_frame, ContactsFragment.newInstance(1,contactList))
             .commit();
 
         } else if (id == R.id.nav_exit) {
