@@ -40,11 +40,13 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
               try{
+                  enterUser.setVisibility(View.GONE);
                   checkLogin(userName.getText().toString(),password.getText().toString());
               }
               catch (Exception e)
               {
                   e.getMessage();
+                  enterUser.setVisibility(View.VISIBLE);
               }
             }
         });
@@ -73,6 +75,7 @@ public class Login extends AppCompatActivity {
                 return null;
             }
         }.execute(this);
+        enterUser.setVisibility(View.VISIBLE);
     }
     public int enterUser() {
         byte[] x = password.getText().toString().getBytes();

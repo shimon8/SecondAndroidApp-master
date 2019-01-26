@@ -14,6 +14,6 @@ public interface Backend {
     ArrayList<Travel> getAllDrive();
     ArrayList<Travel> getAllFinishDrive();
     ArrayList<Travel> getAllContacts();
-    void AddContact(String IdDrive);
+    void FinishDrive(String IdDrive);
     void TakeDrive(String IdDrive);
 }

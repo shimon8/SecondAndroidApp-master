@@ -3,6 +3,7 @@ package com.project.secondapp.controller.model.datasource;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -13,6 +14,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.project.secondapp.controller.controller.Login;
 import com.project.secondapp.controller.controller.MainApp;
 import com.project.secondapp.controller.model.backend.Backend;
 import com.project.secondapp.controller.model.backend.BackendFactory;
@@ -78,13 +80,15 @@ public class Firebase_DBManager implements Backend {
     }
 
     @Override
-    public void AddContact(String IdDrive) {
+    public void FinishDrive(String IdDrive) {
         clientsRequestRef.child(IdDrive).child("drivingStatus").setValue("FINISH");
+        initTravel();
     }
 
     @Override
     public void TakeDrive(String myDrive) {
         clientsRequestRef.child(myDrive).child("drivingStatus").setValue("BUSY");
+        initTravel();
     }
 
     public void initTravel() {

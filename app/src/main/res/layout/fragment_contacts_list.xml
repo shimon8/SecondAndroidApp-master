@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list"
-    android:name="com.project.secondapp.end_fragment_content"
+    android:name="com.project.secondapp.contacts_fragment_content"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".EndTravelFragment"
-    tools:listitem="@layout/fragment_end_travel"
+    tools:context=".AddContactsFragment"
+    tools:listitem="@layout/fragment_add_contacts"
     />

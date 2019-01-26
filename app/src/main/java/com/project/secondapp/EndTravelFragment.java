@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.project.secondapp.controller.model.entities.Travel;
 import com.project.secondapp.dummy.DummyContent;
@@ -20,23 +19,23 @@ import com.project.secondapp.dummy.DummyContent;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link fragment_content.OnFragmentInteractionListener} interface
+ * {@link EndTravelFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link fragment_content#newInstance} factory method to
+ * Use the {@link EndTravelFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 
-public class fragment_content extends Fragment {
+public class EndTravelFragment extends Fragment {
     private int mColumnCount = 1;
     private static final String ARG_COLUMN_COUNT= "column-count";
     private DummyContent content;
     private OnFragmentInteractionListener mListener;
-    public fragment_content() {
+    public EndTravelFragment() {
     }
 
 
-    public static fragment_content newInstance(int columnCount, DummyContent content) {
-        fragment_content fragment = new fragment_content();
+    public static EndTravelFragment newInstance(int columnCount, DummyContent content) {
+        EndTravelFragment fragment = new EndTravelFragment();
         fragment.setContent(content);
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
@@ -69,7 +68,7 @@ public class fragment_content extends Fragment {
         }
         return view;
     }
-    // TODO: Rename method, update argument and hook method into UI event
+    // TODO: Update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);

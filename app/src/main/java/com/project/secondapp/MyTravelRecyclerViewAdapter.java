@@ -73,7 +73,6 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        //TODO ליצור את כל הקומפוננטות שיציגו נסיעה אחת
         public final TextView mTimeView;
         public final TextView mContentView;
         public final TextView mSourceAddressView;
@@ -84,7 +83,6 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
 
         public ViewHolder(View view) {
             //TODO view לחבר את כל הקומפוננטות לשדות ע"י ה
-            //TODO fragment_travel.xml להגדיר איך תראה כל נסיע ב
             super(view);
             mView = view;
             mTimeView = (TextView) view.findViewById(R.id.item_time);

@@ -14,9 +14,6 @@
 
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- To ContentProvider Access: -->
-    <uses-permission android:name="android.permission.READ_USER_DICTIONARY"/>
-    <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY"/>
 
     <application
         android:allowBackup="true"
@@ -53,12 +50,7 @@
         </receiver>
 
         <activity android:name=".controller.controller.TravelActivity"></activity>
-                 <provider
-                     android:name=".controller.controller.Content_provider"
-                     android:authorities="com.project.secondapp.controller.controller.Content_provider"
-                     android:exported="true"
-                     android:multiprocess="true" >
-                 </provider>
+
 </application>
 
 </manifest>

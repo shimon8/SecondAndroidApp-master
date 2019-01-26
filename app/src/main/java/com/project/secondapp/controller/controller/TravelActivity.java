@@ -30,12 +30,19 @@ public class TravelActivity extends AppCompatActivity {
         TextView number = findViewById(R.id.number);
         TextView email = findViewById(R.id.email);
         Button TakeDrive = findViewById(R.id.TakeDrive);
-        Button addContact = findViewById(R.id.AddContact);
+
         TakeDrive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Backend backend = BackendFactory.getBackend();
                 backend.TakeDrive(getIntent().getStringExtra("id"));
+
+                time.setText("זמן הנסיעה: " + getIntent().getStringExtra("TimeOfTravel"));
+                name.setText("שם נוסע: " + getIntent().getStringExtra("name"));
+                sourceAddress.setText("מאיפה: " + getIntent().getStringExtra("startDriving"));
+                endAddress.setText("לאן: " + getIntent().getStringExtra("endDriving"));
+                number.setText("טלפון: " + getIntent().getStringExtra("number"));
+                email.setText("מייל: " + getIntent().getStringExtra("email"));
 //                Intent mailIntent = new Intent(Intent.ACTION_SEND).
 //                        putExtra(Intent.EXTRA_EMAIL, email.getText().toString()).
 //                        putExtra(Intent.EXTRA_SUBJECT, "הנהג בדרך אלייך").
@@ -60,29 +67,6 @@ public class TravelActivity extends AppCompatActivity {
 
             }
         });
-        addContact.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                final Backend backend = BackendFactory.getBackend();
-                backend.AddContact(getIntent().getStringExtra("id"));
-                String[] mails = {email.getText().toString()};
-                Intent intent = new Intent(ContactsContract.Intents.Insert.ACTION);
-                intent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
-                intent.
-                        putExtra(ContactsContract.Intents.Insert.EMAIL, mails).
-                        putExtra(ContactsContract.Intents.Insert.EMAIL_TYPE, ContactsContract.CommonDataKinds.Email.TYPE_WORK).
-                        putExtra(ContactsContract.Intents.Insert.PHONE, number.getText().toString()).
-                        putExtra(ContactsContract.Intents.Insert.PHONE_TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_WORK).
-                        putExtra(ContactsContract.Intents.Insert.NAME, name.getText().toString());
-                startActivity(intent);
-            }
-        });
-        time.setText("זמן הנסיעה: " + getIntent().getStringExtra("TimeOfTravel"));
-        name.setText("שם נוסע: " + getIntent().getStringExtra("name"));
-        sourceAddress.setText("מאיפה: " + getIntent().getStringExtra("startDriving"));
-        endAddress.setText("לאן: " + getIntent().getStringExtra("endDriving"));
-        number.setText("טלפון: " + getIntent().getStringExtra("number"));
-        email.setText("מייל: " + getIntent().getStringExtra("email"));
     }
 }
