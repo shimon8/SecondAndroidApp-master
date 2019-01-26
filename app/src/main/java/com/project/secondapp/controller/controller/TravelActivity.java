@@ -30,6 +30,12 @@ public class TravelActivity extends AppCompatActivity {
         TextView number = findViewById(R.id.number);
         TextView email = findViewById(R.id.email);
         Button TakeDrive = findViewById(R.id.TakeDrive);
+        time.setText("זמן הנסיעה: " + getIntent().getStringExtra("TimeOfTravel"));
+        name.setText("שם נוסע: " + getIntent().getStringExtra("name"));
+        sourceAddress.setText("מאיפה: " + getIntent().getStringExtra("startDriving"));
+        endAddress.setText("לאן: " + getIntent().getStringExtra("endDriving"));
+        number.setText("טלפון: " + getIntent().getStringExtra("number"));
+        email.setText("מייל: " + getIntent().getStringExtra("email"));
 
         TakeDrive.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,12 +43,7 @@ public class TravelActivity extends AppCompatActivity {
                 final Backend backend = BackendFactory.getBackend();
                 backend.TakeDrive(getIntent().getStringExtra("id"));
 
-                time.setText("זמן הנסיעה: " + getIntent().getStringExtra("TimeOfTravel"));
-                name.setText("שם נוסע: " + getIntent().getStringExtra("name"));
-                sourceAddress.setText("מאיפה: " + getIntent().getStringExtra("startDriving"));
-                endAddress.setText("לאן: " + getIntent().getStringExtra("endDriving"));
-                number.setText("טלפון: " + getIntent().getStringExtra("number"));
-                email.setText("מייל: " + getIntent().getStringExtra("email"));
+
 //                Intent mailIntent = new Intent(Intent.ACTION_SEND).
 //                        putExtra(Intent.EXTRA_EMAIL, email.getText().toString()).
 //                        putExtra(Intent.EXTRA_SUBJECT, "הנהג בדרך אלייך").
