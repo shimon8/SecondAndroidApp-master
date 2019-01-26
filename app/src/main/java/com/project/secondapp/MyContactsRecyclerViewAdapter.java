@@ -3,6 +3,7 @@ package com.project.secondapp;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.project.secondapp.controller.model.entities.Travel;
 
 import java.util.List;
 
+import static android.support.v4.app.ActivityCompat.startActivityForResult;
 import static android.support.v4.content.ContextCompat.startActivity;
 
 /**
@@ -50,6 +52,8 @@ public class MyContactsRecyclerViewAdapter extends RecyclerView.Adapter<MyContac
         //TODO לשדה התואם בהולדר position לקשר כל שדה מהאובייקט במקום
         holder.mItem = mValues.get(position);
         holder.mContentView.setText("שם נוסע: " + mValues.get(position).getClientName());
+        holder.mPhoneView.setText("מספר טלפון: " + mValues.get(position).getClientNumber());
+
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +86,7 @@ public class MyContactsRecyclerViewAdapter extends RecyclerView.Adapter<MyContac
             mContentView = (TextView) view.findViewById(R.id.userName);
             mPhoneView = (TextView) view.findViewById(R.id.number);
             AddContact = (Button) view.findViewById(R.id.AddContact);
-            mContentView.setOnClickListener(this);
+            AddContact.setOnClickListener(this);
 //            travel_button=(Button) view.findViewById(R.id.item_number);
 //            travel_button.setOnClickListener(this);
         }
@@ -95,7 +99,13 @@ public class MyContactsRecyclerViewAdapter extends RecyclerView.Adapter<MyContac
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(v.getContext(), mItem.getDateTravel() + "בדיקה", Toast.LENGTH_LONG).show();
+            Intent contactIntent = new Intent(ContactsContract.Intents.Insert.ACTION);
+            contactIntent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
+            Bundle bundle = new Bundle();
+            contactIntent
+                    .putExtra(ContactsContract.Intents.Insert.NAME, mContentView.getText().toString().replace("שם נוסע: ",""))
+                    .putExtra(ContactsContract.Intents.Insert.PHONE, mPhoneView.getText().toString().replace("מספר טלפון: ",""));
+            startActivity(v.getContext(),contactIntent,bundle);
 
 //            Intent intent = new Intent(ContactsContract.Intents.Insert.ACTION);
 //            intent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
