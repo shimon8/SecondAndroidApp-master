@@ -3,7 +3,6 @@ package com.project.secondapp.controller.model.datasource;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -14,7 +13,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.project.secondapp.controller.controller.Login;
 import com.project.secondapp.controller.controller.MainApp;
 import com.project.secondapp.controller.model.backend.Backend;
 import com.project.secondapp.controller.model.backend.BackendFactory;
@@ -27,7 +25,7 @@ import java.util.List;
 
 public class Firebase_DBManager implements Backend {
     public final ArrayList<Travel> travels = new ArrayList<Travel>();
-    public final ArrayList<Travel> Finsihtravels = new ArrayList<Travel>();
+    public final ArrayList<Travel> finishTravels = new ArrayList<Travel>();
     public final ArrayList<Travel> contactsList = new ArrayList<Travel>();
 
     // ----- constructors -----
@@ -71,7 +69,7 @@ public class Firebase_DBManager implements Backend {
 
     public ArrayList<Travel> getAllFinishDrive() {
         initTravel();
-        return Finsihtravels;
+        return finishTravels;
     }
 
     public ArrayList<Travel> getAllContacts() {
@@ -93,33 +91,26 @@ public class Firebase_DBManager implements Backend {
 
     @Override
     public void initTravel(int radius) {
-        clientsRequestRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
 
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                travels.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Travel travel = snapshot.getValue(Travel.class);
-                    travel.setId(snapshot.getKey());
-                    if (travel.getCurrent().distanceTo(travel.getDestination()) <= radius) {
-                        if (travel.getDrivingStatus().toString() == "FREE") {
-                            travels.add(travel);
-                        } else if (travel.getDrivingStatus().toString() == "FINISH") {
-                            contactsList.add(travel);
-                        } else {
-                            Finsihtravels.add(travel);
-                        }
-                    }
-                }
+        for (Travel travel : travels) {
+            if (travel.getCurrent().distanceTo(travel.getDestination()) > radius) {
+                travels.remove(travel);
             }
+        }
 
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+        for (Travel travel : contactsList) {
+            if (travel.getCurrent().distanceTo(travel.getDestination()) > radius) {
+                travels.remove(travel);
             }
-        });
+        }
 
+        for (Travel travel : finishTravels) {
+            if (travel.getCurrent().distanceTo(travel.getDestination()) > radius) {
+                travels.remove(travel);
+            }
+        }
     }
+
 
     public void initTravel() {
         clientsRequestRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -135,7 +126,7 @@ public class Firebase_DBManager implements Backend {
                     } else if (travel.getDrivingStatus().toString() == "FINISH") {
                         contactsList.add(travel);
                     } else {
-                        Finsihtravels.add(travel);
+                        finishTravels.add(travel);
                     }
                 }
             }

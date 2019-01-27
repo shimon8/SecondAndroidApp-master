@@ -38,7 +38,7 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
     private final OnListFragmentInteractionListener mListener;
     Geocoder geocoder;
     List<Address> addresses;
-    int radius;
+    public static int radius;
 
 
     public MyTravelRecyclerViewAdapter(List<Travel> items, OnListFragmentInteractionListener listener) {
@@ -61,6 +61,7 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
             final Backend backend = BackendFactory.getBackend();
+            radius = seekBar.getProgress();
             backend.initTravel(radius);
         }
     };
@@ -82,6 +83,7 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
         holder.mDestAddressView.setText("יעד: " + mValues.get(position).getEndDriving());
         if (position == 0) {
             holder.mSeekBarView.setVisibility(View.VISIBLE);
+            holder.mSeekBarView.setProgress(radius);
         }
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -112,7 +114,6 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
         public final SeekBar mSeekBarView;
 
         public ViewHolder(View view) {
-            //TODO view לחבר את כל הקומפוננטות לשדות ע"י ה
             super(view);
             mView = view;
             mTimeView = (TextView) view.findViewById(R.id.item_time);
@@ -120,6 +121,7 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
             mSourceAddressView = (TextView) view.findViewById(R.id.sourceAddress);
             mDestAddressView = (TextView) view.findViewById(R.id.destinationAddress);
             mSeekBarView = (SeekBar) view.findViewById(R.id.seekBar);
+            mSeekBarView.setProgress(radius);
             //mSeekBarView.setVisibility(View.VISIBLE);
             mContentView.setOnClickListener(this);
 

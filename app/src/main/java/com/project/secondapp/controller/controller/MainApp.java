@@ -121,6 +121,8 @@ public class MainApp extends AppCompatActivity implements NavigationView.OnNavig
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+        final Backend backend = BackendFactory.getBackend();
+        //backend.updateDB();
         return true;
     }
 }
