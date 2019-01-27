@@ -61,7 +61,7 @@ public class TravelActivity extends AppCompatActivity {
                 sendIntent.putExtra("address", number.getText().toString().replace("טלפון:", ""));
                 sendIntent.putExtra("subject", "הזמנת מונית SMART TAXI");
                 sendIntent.setType("text/plain");
-                String uri = "waze://?ll=" + sourceAddress.getText().toString() + "&navigate=yes";
+                String uri = "waze://ul?q=" + sourceAddress.getText().toString() + "&navigate=yes";
                 startActivity(new Intent(android.content.Intent.ACTION_VIEW,
                         Uri.parse(uri)));
                 startActivity(sendIntent);
