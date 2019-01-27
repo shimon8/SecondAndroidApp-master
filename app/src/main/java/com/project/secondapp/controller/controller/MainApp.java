@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.SeekBar;
 
 import com.project.secondapp.ContactsFragment;
 import com.project.secondapp.EndTravelFragment;
@@ -30,6 +32,7 @@ public class MainApp extends AppCompatActivity implements NavigationView.OnNavig
     DummyContent endTravel;
     DummyContent contactList;
     FragmentManager fragmentManager = getFragmentManager();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +87,8 @@ public class MainApp extends AppCompatActivity implements NavigationView.OnNavig
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.choose_radius) {
+            //seek_bar.setVisibility(View.VISIBLE);
             return true;
         }
 

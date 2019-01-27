@@ -91,6 +91,36 @@ public class Firebase_DBManager implements Backend {
         initTravel();
     }
 
+    @Override
+    public void initTravel(int radius) {
+        clientsRequestRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                travels.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Travel travel = snapshot.getValue(Travel.class);
+                    travel.setId(snapshot.getKey());
+                    if (travel.getCurrent().distanceTo(travel.getDestination()) <= radius) {
+                        if (travel.getDrivingStatus().toString() == "FREE") {
+                            travels.add(travel);
+                        } else if (travel.getDrivingStatus().toString() == "FINISH") {
+                            contactsList.add(travel);
+                        } else {
+                            Finsihtravels.add(travel);
+                        }
+                    }
+                }
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+    }
+
     public void initTravel() {
         clientsRequestRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

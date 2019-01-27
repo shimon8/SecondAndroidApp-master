@@ -9,11 +9,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface Backend {
-    void addDriver(Driver driver,Context context);
+    void addDriver(Driver driver, Context context);
+
     void checkLogin(String UserName, int Password, Context context);
+
     ArrayList<Travel> getAllDrive();
+
     ArrayList<Travel> getAllFinishDrive();
+
     ArrayList<Travel> getAllContacts();
+
     void FinishDrive(String IdDrive);
+
     void TakeDrive(String IdDrive);
+
+    void initTravel(int radius);
 }
