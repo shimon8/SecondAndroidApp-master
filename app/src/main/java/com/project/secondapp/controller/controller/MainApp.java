@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.project.secondapp.ContactsFragment;
 import com.project.secondapp.EndTravelFragment;
@@ -32,7 +33,7 @@ public class MainApp extends AppCompatActivity implements NavigationView.OnNavig
     DummyContent endTravel;
     DummyContent contactList;
     FragmentManager fragmentManager = getFragmentManager();
-
+    final Backend backend = BackendFactory.getBackend();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,6 @@ public class MainApp extends AppCompatActivity implements NavigationView.OnNavig
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_app);
-        final Backend backend = BackendFactory.getBackend();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -60,6 +60,16 @@ public class MainApp extends AppCompatActivity implements NavigationView.OnNavig
         fragmentManager.beginTransaction()
                 .replace(R.id.content_frame, TravelFragment.newInstance(1, content))
                 .commit();
+    }
+
+    public void refreshList() {
+        content.items.clear();
+        endTravel.items.clear();
+        contactList.items.clear();
+
+        content.items.addAll(backend.getAllDrive());
+        endTravel.items.addAll(backend.getAllFinishDrive());
+        contactList.items.addAll(backend.getAllContacts());
     }
 
     @Override
@@ -99,6 +109,7 @@ public class MainApp extends AppCompatActivity implements NavigationView.OnNavig
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+        //refreshList();
         int id = item.getItemId();
         if (id == R.id.nav_travels) {
             fragmentManager.beginTransaction()
@@ -108,11 +119,10 @@ public class MainApp extends AppCompatActivity implements NavigationView.OnNavig
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, EndTravelFragment.newInstance(1, endTravel))
                     .commit();
-        }
-        else if (id==R.id.nav_my_clients) {
+        } else if (id == R.id.nav_my_clients) {
             fragmentManager.beginTransaction()
-            .replace(R.id.content_frame, ContactsFragment.newInstance(1,contactList))
-            .commit();
+                    .replace(R.id.content_frame, ContactsFragment.newInstance(1, contactList))
+                    .commit();
 
         } else if (id == R.id.nav_exit) {
             finish();
@@ -121,7 +131,7 @@ public class MainApp extends AppCompatActivity implements NavigationView.OnNavig
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        final Backend backend = BackendFactory.getBackend();
+        //final Backend backend = BackendFactory.getBackend();
         //backend.updateDB();
         return true;
     }

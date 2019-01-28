@@ -1,7 +1,9 @@
 package com.project.secondapp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.FragmentManager;
@@ -18,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.project.secondapp.TravelFragment.OnListFragmentInteractionListener;
+import com.project.secondapp.controller.controller.AddDriver;
+import com.project.secondapp.controller.controller.MainApp;
 import com.project.secondapp.controller.controller.TravelActivity;
 import com.project.secondapp.controller.model.backend.Backend;
 import com.project.secondapp.controller.model.backend.BackendFactory;
@@ -29,12 +33,11 @@ import java.util.List;
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Travel} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
  */
 
 public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Travel> mValues;
+    private List<Travel> mValues;
     private final OnListFragmentInteractionListener mListener;
     Geocoder geocoder;
     List<Address> addresses;
@@ -47,24 +50,7 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
         radius = 250;
     }
 
-    SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
-        @Override
-        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            radius = progress;
-        }
 
-        @Override
-        public void onStartTrackingTouch(SeekBar seekBar) {
-
-        }
-
-        @Override
-        public void onStopTrackingTouch(SeekBar seekBar) {
-            final Backend backend = BackendFactory.getBackend();
-            radius = seekBar.getProgress();
-            backend.initTravel(radius);
-        }
-    };
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -75,7 +61,6 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        //TODO לשדה התואם בהולדר position לקשר כל שדה מהאובייקט במקום
         holder.mItem = mValues.get(position);
         holder.mTimeView.setText("זמן נסיעה: " + mValues.get(position).getDateTravel());
         holder.mContentView.setText("שם נוסע: " + mValues.get(position).getClientName());
@@ -103,7 +88,7 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
         return mValues.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
         public final TextView mTimeView;
         public final TextView mContentView;
         public final TextView mSourceAddressView;
@@ -122,6 +107,28 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
             mDestAddressView = (TextView) view.findViewById(R.id.destinationAddress);
             mSeekBarView = (SeekBar) view.findViewById(R.id.seekBar);
             mSeekBarView.setProgress(radius);
+
+            mSeekBarView.setOnSeekBarChangeListener(this);
+            SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    radius = progress;
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                    final Backend backend = BackendFactory.getBackend();
+                    radius = seekBar.getProgress();
+                    backend.initTravel(radius);
+                    mValues = backend.getAllDrive();
+                }
+            };
+
             //mSeekBarView.setVisibility(View.VISIBLE);
             mContentView.setOnClickListener(this);
 
@@ -148,6 +155,37 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
                 intent.putExtra("id", mItem.getId());
                 v.getContext().startActivity(intent);
             }
+        }
+
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            radius = progress;
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar)  {
+            final Backend backend = BackendFactory.getBackend();
+            radius = seekBar.getProgress();
+            //backend.initTravel(radius);
+
+            new AsyncTask<Context, Void, Void>() {
+                public void execute(ViewHolder viewHolder) {
+                    //doInBackground();
+                }
+
+                @Override
+                protected Void doInBackground(Context... contexts) {
+                    backend.initTravel(radius);
+                    //mValues = backend.getAllDrive();
+                    return null;
+                }
+            }.execute(this);
+
         }
     }
 }

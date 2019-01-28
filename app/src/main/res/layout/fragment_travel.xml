@@ -12,14 +12,14 @@
     android:background="@drawable/border_ui"
     android:orientation="vertical">
 
-        <SeekBar
-            android:id="@+id/seekBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:max="500"
-            android:progress="250"
-      android:visibility="invisible" /><!---->
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:max="500"
+        android:progress="250"
+        android:visibility="invisible" /><!---->
 
 
     <TextView

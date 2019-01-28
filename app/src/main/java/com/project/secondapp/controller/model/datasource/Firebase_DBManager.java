@@ -24,9 +24,9 @@ import java.util.List;
 
 
 public class Firebase_DBManager implements Backend {
-    public final ArrayList<Travel> travels = new ArrayList<Travel>();
-    public final ArrayList<Travel> finishTravels = new ArrayList<Travel>();
-    public final ArrayList<Travel> contactsList = new ArrayList<Travel>();
+    public  ArrayList<Travel> travels = new ArrayList<Travel>();
+    public  ArrayList<Travel> finishTravels = new ArrayList<Travel>();
+    public  ArrayList<Travel> contactsList = new ArrayList<Travel>();
 
     // ----- constructors -----
 
