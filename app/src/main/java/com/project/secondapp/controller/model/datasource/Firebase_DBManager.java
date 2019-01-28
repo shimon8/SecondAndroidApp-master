@@ -90,25 +90,16 @@ public class Firebase_DBManager implements Backend {
     }
 
     @Override
-    public void initTravel(int radius) {
-
+    public ArrayList<Travel> initTravel(int radius) {
+    ArrayList<Travel>myFilter= new ArrayList<Travel>();
         for (Travel travel : travels) {
-            if (travel.getCurrent().distanceTo(travel.getDestination()) > radius) {
-                travels.remove(travel);
+            if (travel.getCurrent().distanceTo(travel.getDestination())/10000<radius) {
+                myFilter.add(travel);
+                myFilter.add(travel);
             }
         }
 
-        for (Travel travel : contactsList) {
-            if (travel.getCurrent().distanceTo(travel.getDestination()) > radius) {
-                travels.remove(travel);
-            }
-        }
-
-        for (Travel travel : finishTravels) {
-            if (travel.getCurrent().distanceTo(travel.getDestination()) > radius) {
-                travels.remove(travel);
-            }
-        }
+      return myFilter;
     }
 
 

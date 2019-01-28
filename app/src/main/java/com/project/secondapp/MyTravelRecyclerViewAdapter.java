@@ -28,6 +28,7 @@ import com.project.secondapp.controller.model.backend.BackendFactory;
 import com.project.secondapp.controller.model.entities.Travel;
 
 import java.security.PublicKey;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,7 +48,7 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
     public MyTravelRecyclerViewAdapter(List<Travel> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
-        radius = 250;
+        //radius = 250;
     }
 
 
@@ -171,20 +172,27 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
         public void onStopTrackingTouch(SeekBar seekBar)  {
             final Backend backend = BackendFactory.getBackend();
             radius = seekBar.getProgress();
-            //backend.initTravel(radius);
+            ArrayList<Travel> myFilter=backend.initTravel(radius);
+            mValues=myFilter;
+            if(seekBar.getParent().getParent() instanceof RecyclerView)
+            {
+                RecyclerView recyclerView=(RecyclerView) seekBar.getParent().getParent();
+                recyclerView.setAdapter(new MyTravelRecyclerViewAdapter(mValues,mListener));
+            }
 
-            new AsyncTask<Context, Void, Void>() {
-                public void execute(ViewHolder viewHolder) {
-                    //doInBackground();
-                }
 
-                @Override
-                protected Void doInBackground(Context... contexts) {
-                    backend.initTravel(radius);
-                    //mValues = backend.getAllDrive();
-                    return null;
-                }
-            }.execute(this);
+//            new AsyncTask<Context, Void, Void>() {
+//                public void execute(ViewHolder viewHolder) {
+//                    //doInBackground();
+//                }
+//
+//                @Override
+//                protected Void doInBackground(Context... contexts) {
+//                    backend.initTravel(radius);
+//                    //mValues = backend.getAllDrive();
+//                    return null;
+//                }
+//            }.execute(this);
 
         }
     }

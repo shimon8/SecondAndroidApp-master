@@ -84,6 +84,12 @@ class MyFinishedTravelsAdapter extends RecyclerView.Adapter<MyFinishedTravelsAda
             if (mItem.getDrivingStatus().toString() == "BUSY") {
                 final Backend backend = BackendFactory.getBackend();
                 backend.FinishDrive(mItem.getId());
+                mValues.remove(mItem);
+                if(v.getParent().getParent() instanceof RecyclerView)
+                {
+                    RecyclerView recyclerView=(RecyclerView) v.getParent().getParent();
+                    recyclerView.setAdapter(new MyFinishedTravelsAdapter(mValues,mListener));
+                }
 
                 //Toast.makeText(v.getContext(), mItem.getDateTravel() + "בדיקה", Toast.LENGTH_LONG).show();
 //                Intent intent = new Intent(v.getContext(), EndTravelFragment.class);

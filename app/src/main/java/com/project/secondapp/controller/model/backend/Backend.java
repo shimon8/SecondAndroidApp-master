@@ -54,5 +54,5 @@ public interface Backend {
 
     void TakeDrive(String IdDrive);
 
-    void initTravel(int radius);
+    ArrayList<Travel> initTravel(int radius);
 }

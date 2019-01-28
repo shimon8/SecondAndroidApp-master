@@ -39,6 +39,7 @@ public class MyService extends Service {
                     intent1.putExtra("name", travel.getClientName());
                     intent1.putExtra("phone", travel.getClientNumber());
                     sendBroadcast(intent1);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
