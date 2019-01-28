@@ -160,7 +160,7 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
 
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            radius = progress;
+
         }
 
         @Override
@@ -176,6 +176,7 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
             mValues=myFilter;
             if(seekBar.getParent().getParent() instanceof RecyclerView)
             {
+
                 RecyclerView recyclerView=(RecyclerView) seekBar.getParent().getParent();
                 recyclerView.setAdapter(new MyTravelRecyclerViewAdapter(mValues,mListener));
             }

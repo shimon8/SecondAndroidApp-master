@@ -93,8 +93,7 @@ public class Firebase_DBManager implements Backend {
     public ArrayList<Travel> initTravel(int radius) {
     ArrayList<Travel>myFilter= new ArrayList<Travel>();
         for (Travel travel : travels) {
-            if (travel.getCurrent().distanceTo(travel.getDestination())/10000<radius) {
-                myFilter.add(travel);
+            if (travel.getCurrent().distanceTo(travel.getDestination())/100000<radius) {
                 myFilter.add(travel);
             }
         }

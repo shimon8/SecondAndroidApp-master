@@ -106,21 +106,7 @@ public class MyContactsRecyclerViewAdapter extends RecyclerView.Adapter<MyContac
 
         @Override
         public void onClick(View v) {
-//            Intent contactIntent = new Intent(ContactsContract.Intents.Insert.ACTION);
-//            contactIntent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
-//            Bundle bundle = new Bundle();
-//            contactIntent
-//                    .putExtra(ContactsContract.Intents.Insert.NAME, mContentView.getText().toString().replace("שם נוסע: ",""))
-//                    .putExtra(ContactsContract.Intents.Insert.PHONE, mPhoneView.getText().toString().replace("מספר טלפון: ",""));
-//            startActivity(v.getContext(),contactIntent,bundle);
 
-//            Intent intent = new Intent(ContactsContract.Intents.Insert.ACTION);
-//            intent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
-//            intent.
-//                    putExtra(ContactsContract.Intents.Insert.PHONE, mPhoneView.getText().toString()).
-//                    putExtra(ContactsContract.Intents.Insert.PHONE_TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_WORK).
-//                    putExtra(ContactsContract.Intents.Insert.NAME, mContentView.getText().toString());
-//            startActivity(intent);
 
             ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
             int rawContactInsertIndex = ops.size();
