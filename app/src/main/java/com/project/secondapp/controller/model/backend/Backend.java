@@ -50,9 +50,23 @@ public interface Backend {
      */
     ArrayList<Travel> getAllContacts();
 
+    /**
+     * Finish Drive in the firebase
+     *
+     *
+     */
     void FinishDrive(String IdDrive);
-
+    /**
+     * Take Drive in the firebase
+     *
+     *
+     */
     void TakeDrive(String IdDrive);
-
+    /**
+     * Initilize the Travels Lists
+     *
+     * @param radius Driver Prefrence radius to filter on it
+     * @return List of filtering travels
+     */
     ArrayList<Travel> initTravel(int radius);
 }

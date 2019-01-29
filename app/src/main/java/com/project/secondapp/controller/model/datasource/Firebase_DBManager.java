@@ -33,14 +33,6 @@ public class Firebase_DBManager implements Backend {
     public Firebase_DBManager() {
         requests = new ArrayList<>();
         initTravel();
-    }
-
-
-    public Firebase_DBManager(BackendFactory.Friend friend) {
-        //if try to create Firebase_DBManager with null param
-        //this throw NullPointerException
-        requests = new ArrayList<>();
-        initTravel();
 
     }
 

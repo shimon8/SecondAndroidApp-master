@@ -32,7 +32,6 @@ import static android.support.v4.content.ContextCompat.startActivity;
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Travel} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
  */
 
 public class MyContactsRecyclerViewAdapter extends RecyclerView.Adapter<MyContactsRecyclerViewAdapter.ViewHolder> {
@@ -56,7 +55,6 @@ public class MyContactsRecyclerViewAdapter extends RecyclerView.Adapter<MyContac
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        //TODO לשדה התואם בהולדר position לקשר כל שדה מהאובייקט במקום
         holder.mItem = mValues.get(position);
         holder.mContentView.setText("שם נוסע: " + mValues.get(position).getClientName());
         holder.mPhoneView.setText("מספר טלפון: " + mValues.get(position).getClientNumber());
@@ -87,15 +85,12 @@ public class MyContactsRecyclerViewAdapter extends RecyclerView.Adapter<MyContac
         Button travel_button;
 
         public ViewHolder(View view) {
-            //TODO view לחבר את כל הקומפוננטות לשדות ע"י ה
             super(view);
             mView = view;
             mContentView = view.findViewById(R.id.userName);
             mPhoneView = view.findViewById(R.id.number);
             AddContact = view.findViewById(R.id.AddContact);
             AddContact.setOnClickListener(this);
-//            travel_button=(Button) view.findViewById(R.id.item_number);
-//            travel_button.setOnClickListener(this);
         }
 
         @Override

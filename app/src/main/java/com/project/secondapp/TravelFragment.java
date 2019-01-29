@@ -20,9 +20,7 @@ import com.project.secondapp.dummy.DummyContent;
  * interface.
  */
 public class TravelFragment extends Fragment {
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
     private DummyContent content;
     private OnListFragmentInteractionListener mListener;
@@ -32,7 +30,6 @@ public class TravelFragment extends Fragment {
      */
     public TravelFragment() {
     }
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static TravelFragment newInstance(int columnCount, DummyContent content) {
         TravelFragment fragment = new TravelFragment();
@@ -95,7 +92,6 @@ public class TravelFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onListFragmentInteraction(Travel item);
     }
 }

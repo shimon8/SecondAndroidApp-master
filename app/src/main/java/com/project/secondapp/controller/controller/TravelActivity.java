@@ -43,14 +43,6 @@ public class TravelActivity extends AppCompatActivity {
                 final Backend backend = BackendFactory.getBackend();
                 backend.TakeDrive(getIntent().getStringExtra("id"));
 
-
-//                Intent mailIntent = new Intent(Intent.ACTION_SEND).
-//                        putExtra(Intent.EXTRA_EMAIL, email.getText().toString()).
-//                        putExtra(Intent.EXTRA_SUBJECT, "הנהג בדרך אלייך").
-//                        putExtra(Intent.EXTRA_TEXT, "שלום רב, יצאתי אלייך");
-//                mailIntent.setType("message/rfc822");
-//                startActivity(mailIntent.createChooser(mailIntent, "בחר באפליקציית המייל הרצויה"));
-
                 String[] mails = {email.getText().toString().replace("מייל:", "")};
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);

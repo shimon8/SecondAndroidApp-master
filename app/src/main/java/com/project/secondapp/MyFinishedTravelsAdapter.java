@@ -40,7 +40,6 @@ class MyFinishedTravelsAdapter extends RecyclerView.Adapter<MyFinishedTravelsAda
         holder.mTimeView.setText("שם נוסע: " + mValues.get(position).getClientName());
         holder.mNumberView.setText("מספר טלפון: " + mValues.get(position).getClientNumber());
         holder.mSourceAddressView.setText("מקור: " + mValues.get(position).getStratDrving());
-        // holder.mDestAddressView.setText("יעד: " + mValues.get(position).getEndDriving());
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,18 +89,6 @@ class MyFinishedTravelsAdapter extends RecyclerView.Adapter<MyFinishedTravelsAda
                     RecyclerView recyclerView=(RecyclerView) v.getParent().getParent();
                     recyclerView.setAdapter(new MyFinishedTravelsAdapter(mValues,mListener));
                 }
-
-                //Toast.makeText(v.getContext(), mItem.getDateTravel() + "בדיקה", Toast.LENGTH_LONG).show();
-//                Intent intent = new Intent(v.getContext(), EndTravelFragment.class);
-//                intent.putExtra("TimeOfTravel", mItem.getDateTravel());
-//                intent.putExtra("startDriving", mItem.getStratDrving());
-//                intent.putExtra("endDriving", mItem.getEndDriving());
-//                intent.putExtra("name", mItem.getClientName());
-//                intent.putExtra("number", mItem.getClientNumber());
-//                intent.putExtra("email", mItem.getClientEmail());
-//                intent.putExtra("id", mItem.getId());
-//                v.getContext().startActivity(intent);
-
             }
         }
 

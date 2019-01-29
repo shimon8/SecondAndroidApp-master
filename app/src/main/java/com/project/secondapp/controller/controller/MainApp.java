@@ -62,16 +62,6 @@ public class MainApp extends AppCompatActivity implements NavigationView.OnNavig
                 .commit();
     }
 
-    public void refreshList() {
-        content.items.clear();
-        endTravel.items.clear();
-        contactList.items.clear();
-
-        content.items.addAll(backend.getAllDrive());
-        endTravel.items.addAll(backend.getAllFinishDrive());
-        contactList.items.addAll(backend.getAllContacts());
-    }
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -109,7 +99,6 @@ public class MainApp extends AppCompatActivity implements NavigationView.OnNavig
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        //refreshList();
         int id = item.getItemId();
         if (id == R.id.nav_travels) {
             fragmentManager.beginTransaction()
@@ -131,8 +120,6 @@ public class MainApp extends AppCompatActivity implements NavigationView.OnNavig
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        //final Backend backend = BackendFactory.getBackend();
-        //backend.updateDB();
         return true;
     }
 }

@@ -68,7 +68,6 @@ public class EndTravelFragment extends Fragment {
         }
         return view;
     }
-    // TODO: Update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -116,7 +115,6 @@ public class EndTravelFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener extends TravelFragment.OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
 
         @Override

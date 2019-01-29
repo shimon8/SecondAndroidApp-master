@@ -48,7 +48,6 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
     public MyTravelRecyclerViewAdapter(List<Travel> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
-        //radius = 250;
     }
 
 
@@ -129,12 +128,7 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
                     mValues = backend.getAllDrive();
                 }
             };
-
-            //mSeekBarView.setVisibility(View.VISIBLE);
             mContentView.setOnClickListener(this);
-
-//            travel_button=(Button) view.findViewById(R.id.item_number);
-//            travel_button.setOnClickListener(this);
         }
 
         @Override
@@ -145,7 +139,6 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
         @Override
         public void onClick(View v) {
             if (mItem.getDrivingStatus().toString() == "FREE") {
-                //Toast.makeText(v.getContext(), mItem.getDateTravel() + "בדיקה", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(v.getContext(), TravelActivity.class);
                 intent.putExtra("TimeOfTravel", mItem.getDateTravel());
                 intent.putExtra("startDriving", mItem.getStratDrving());
@@ -162,12 +155,10 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
         }
-
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
 
         }
-
         @Override
         public void onStopTrackingTouch(SeekBar seekBar)  {
             final Backend backend = BackendFactory.getBackend();
@@ -180,21 +171,6 @@ public class MyTravelRecyclerViewAdapter extends RecyclerView.Adapter<MyTravelRe
                 RecyclerView recyclerView=(RecyclerView) seekBar.getParent().getParent();
                 recyclerView.setAdapter(new MyTravelRecyclerViewAdapter(mValues,mListener));
             }
-
-
-//            new AsyncTask<Context, Void, Void>() {
-//                public void execute(ViewHolder viewHolder) {
-//                    //doInBackground();
-//                }
-//
-//                @Override
-//                protected Void doInBackground(Context... contexts) {
-//                    backend.initTravel(radius);
-//                    //mValues = backend.getAllDrive();
-//                    return null;
-//                }
-//            }.execute(this);
-
         }
     }
 }
